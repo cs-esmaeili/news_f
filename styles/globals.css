@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: 255 255 255;
+  --color-secondary: 249 250 251;
+  --color-accent: 253 124 56;
+  --color-text: 0 0 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: 46 49 57;
+    --color-secondary: 34 37 45;
+    --color-accent: 253 124 56;
+    --color-text: 255 255 255;
+  }
+}
+
+body {
+  color: rgb(var(--color-text));
+  background-color: rgb(var(--color-primary));
+}
