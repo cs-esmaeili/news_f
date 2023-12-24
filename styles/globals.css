@@ -7,6 +7,9 @@
   --color-secondary: 249 250 251;
   --color-accent: 253 124 56;
   --color-text: 0 0 0;
+  --color-secondary_dark: 237 239 241;
+  --color-dactive: 189 196 203;
+  --color-active_background: 255 247 234;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -15,6 +18,9 @@
     --color-secondary: 34 37 45;
     --color-accent: 253 124 56;
     --color-text: 255 255 255;
+    --color-secondary_dark: 237 239 241;
+    --color-dactive: 189 196 203;
+    --color-active_background: 255 247 234;
   }
 }
 

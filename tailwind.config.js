@@ -15,9 +15,11 @@ module.exports = {
       colors: {
         primary: 'rgb(var(--color-primary) / <alpha-value>)',
         secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
+        secondary_dark : 'rgb(var(--color-secondary_dark) / <alpha-value>)',
         accent: 'rgb(var(--color-accent) / <alpha-value>)',
         text: 'rgb(var(--color-text) / <alpha-value>)',
-        siebar_item: 'rgb(var(--color-siebar_item) / <alpha-value>)',
+        dactive : 'rgb(var(--color-dactive) / <alpha-value>)',
+        active_background : 'rgb(var(--color-active_background) / <alpha-value>)',
       }
     },
   },
