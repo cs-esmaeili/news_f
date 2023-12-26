@@ -28,7 +28,7 @@ export default function Layout({ children }) {
   return (
     <html lang="en">
       <body>
-        <div className='bg-primary flex h-screen'>
+        <div suppressHydrationWarning={true} className='bg-primary flex h-screen'>
 
           <Sidebar open={open} setOpen={setOpen} />
           <div className={open ? "opacity-50 bg-black w-100% h-screen z-0 top-0 left-0 right-0 bottom-0 fixed cursor-pointer" : "hidden"} 
