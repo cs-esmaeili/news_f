@@ -35,7 +35,7 @@ export default function Layout({ children }) {
           onClick={() => setOpen(!open)}/>
           <div className='flex grow flex-col h-screen '>
             <Header open={open} setOpen={setOpen} />
-            <div>
+            <div className="flex grow border-solid border-yellow-400 border-2">
               {children}
             </div>
           </div>
