@@ -7,8 +7,8 @@ const Sidebar = ({ open, setOpen }) => {
     <div
       className={
         open
-          ? "bg-secondary p-7 h-full absolute top-0 left-0 bottom-0 z-10 ease-in duration-500"
-          : "bg-secondary p-7 h-full absolute left-[-100%] lg:block lg:static ease-in duration-500"
+          ? "absolute bottom-0 left-0 top-0 z-10 h-full min-w-max bg-secondary p-7 duration-500 ease-in"
+          : "absolute  left-[-100%] h-full min-w-max bg-secondary p-7 duration-500 ease-in lg:static lg:block"
       }
     >
       <div className="flex items-center justify-center">
@@ -22,7 +22,7 @@ const Sidebar = ({ open, setOpen }) => {
         <span className="ml-3 font-bold"> WEB site Name </span>
       </div>
 
-      <div className="flex items-center p-3 mt-8 mb-5 bg-secondary_dark rounded-md">
+      <div className="mb-5 mt-8 flex items-center rounded-md bg-secondary_dark p-3">
         <Image
           className="rounded-full"
           src="/avatar.jpg"
@@ -33,19 +33,19 @@ const Sidebar = ({ open, setOpen }) => {
         <span className="ml-3"> Javad Esmaeili </span>
       </div>
       <div>
-        <div className="flex items-center mb-5 p-3 text-dactive ">
+        <div className="mb-5 flex items-center p-3 text-dactive ">
           <FaHouseChimney className="text-2xl" />
           <span className="ml-3">Home</span>
         </div>
-        <div className="flex items-center mb-5 p-3 text-dactive ">
+        <div className="mb-5 flex items-center p-3 text-dactive ">
           <FaHouseChimney className="text-2xl" />
           <span className="ml-3">Home</span>
         </div>
-        <div className="flex items-center text-accent bg-active_background mb-5 bg-siebar_item p-3 rounded-lg">
+        <div className="bg-siebar_item mb-5 flex items-center rounded-lg bg-active_background p-3 text-accent">
           <FaHouseChimney className="text-2xl" />
           <span className="ml-3">Home</span>
         </div>
-        <div className="flex items-center mb-5 p-3 text-dactive ">
+        <div className="mb-5 flex items-center p-3 text-dactive ">
           <FaHouseChimney className="text-2xl" />
           <span className="ml-3">Home</span>
         </div>

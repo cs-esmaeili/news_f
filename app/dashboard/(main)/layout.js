@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Header from '@/components/dashboard/Header';
 import Sidebar from '@/components/dashboard/Sidebar';
+import { ModalProvider } from '@/components/dashboard/Modal';
 import '@/styles/globals.css';
 
 
@@ -28,18 +29,18 @@ export default function Layout({ children }) {
   return (
     <html lang="en">
       <body>
-        <div suppressHydrationWarning={true} className='bg-primary flex h-screen'>
-
-          <Sidebar open={open} setOpen={setOpen} />
-          <div className={open ? "opacity-50 bg-black w-100% h-screen z-0 top-0 left-0 right-0 bottom-0 fixed cursor-pointer" : "hidden"} 
-          onClick={() => setOpen(!open)}/>
-          <div className='flex grow flex-col h-screen '>
-            <Header open={open} setOpen={setOpen} />
-            <div className="flex grow border-solid border-yellow-400 border-2">
-              {children}
+        <div className='bg-primary flex h-screen'>
+          <ModalProvider>
+            <Sidebar open={open} setOpen={setOpen} />
+            <div className={open ? "opacity-50 bg-black w-100% h-screen z-10 top-0 left-0 right-0 bottom-0 fixed cursor-pointer" : "hidden"}
+              onClick={() => setOpen(!open)} />
+            <div className='flex grow flex-col h-screen '>
+              <Header open={open} setOpen={setOpen} />
+              <div className="flex relative grow border-solid border-yellow-400 border-2  overflow-hidden">
+                {children}
+              </div>
             </div>
-          </div>
-
+          </ModalProvider>
         </div>
       </body>
     </html>

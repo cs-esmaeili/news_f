@@ -10,32 +10,32 @@ import { GiOpenTreasureChest } from "react-icons/gi";
 
 const Header = ({ open, setOpen }) => {
   return (
-    <div className="flex p-2  items-center">
+    <div className="flex items-center  p-2">
       <RiMenu3Line
-        className="text-2xl mr-3 lg:hidden"
+        className="mr-3 text-2xl lg:hidden"
         onClick={() => setOpen(!open)}
       />
-      <div className="flex justify-around gap-1   flex-wrap grow bg-secondary rounded-xl p-2">
-        <div className="hidden md:flex justify-center">
+      <div className="flex  grow flex-wrap justify-around gap-1 rounded-xl bg-secondary p-2">
+        <div className="hidden md:flex ">
           <BiSolidStar className="text-2xl  text-blue-400" />
-          <span>300</span>
+          <span className="text-md">300</span>
         </div>
         <div className="flex text-green-400">
           <PiArrowFatDownFill className="text-2xl" />
-          <span>12,000,000 M</span>
+          <span className="text-md">12,000,000 M</span>
         </div>
         <div className="flex  text-red-400">
           <PiArrowFatUpFill className="text-2xl" />
-          <span>10,000,000 M</span>
+          <span className="text-md">10,000,000 M</span>
         </div>
-        <div className="hidden md:flex text-yellow-400">
+        <div className="hidden text-yellow-400 md:flex">
           <GiOpenTreasureChest className="text-2xl" />
-          <span>10 G</span>
+          <span className="text-md">10 G</span>
         </div>
       </div>
       <div className="ml-3 hidden sm:flex">
         <MdSunny className="text-2xl" />
-        <FaBell className="text-2xl ml-3" />
+        <FaBell className="ml-3 text-2xl" />
       </div>
       <MiniProfile sliderIsOpen={open} />
     </div>

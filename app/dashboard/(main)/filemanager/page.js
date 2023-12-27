@@ -7,7 +7,8 @@ import { folderFileList as RfolderFileList } from '@/services/Filemanager';
 // import Upload from '@/components/dashboard/filemanager/Upload';
 // import Rename from '@/components/dashboard/filemanager/Rename';
 // import Folder from '@/components/dashboard/filemanager/Folder';
-// import Files from '@/components/dashboard/filemanager/Files';
+import Files from '@/components/dashboard/filemanager/Files';
+import { useModalContext } from '@/components/dashboard/Modal';
 
 export default function FileManager({ selectedFile = null, fileTypes = null }) {
 
@@ -15,8 +16,9 @@ export default function FileManager({ selectedFile = null, fileTypes = null }) {
     const [path, setPath] = useState([]);
     const [content, setContent] = useState(null);
     const [baseUrl, setBaseUrl] = useState(null);
+    const [status, setStatus] = useState(false);
 
-    const [status, setStatus] = useState(null);
+    const { isModalOpen, openModal, closeModal, setBody } = useModalContext();
 
 
     const [file, setfile] = useState(null);
@@ -34,6 +36,8 @@ export default function FileManager({ selectedFile = null, fileTypes = null }) {
             setBaseUrl(baseUrl);
             if (content.folders.length == 0 && content.files.length == 0) {
                 setStatus('مسیر خالی میباشد');
+            } else {
+                setStatus(false);
             }
         } catch (error) {
             console.log(error);
@@ -56,14 +60,12 @@ export default function FileManager({ selectedFile = null, fileTypes = null }) {
     }, [file]);
 
     const statusElement = () => {
-        console.log(status);
         if (status === true) {
-            return (<div className="flex">
-                <div className="relative">
-                    <div className="w-12 h-12 rounded-full animate-spin absolute
-                border-8 border-solid border-purple-500 border-t-transparent"></div>
+            return (
+                <div className="relative flex justify-center items-center h-full">
+                    <div className="w-12 h-12 rounded-full border-8 border-solid border-accent border-t-transparent animate-spin"></div>
                 </div>
-            </div>)
+            )
         } else if (typeof status === 'string') {
             return (
                 <div className='flex content-center justify-center '>
@@ -74,7 +76,26 @@ export default function FileManager({ selectedFile = null, fileTypes = null }) {
     }
 
     return (
-        <div className='flex grow'>
+        <>
+            {/* <div className='flex  grow flex-col overflow-auto '>
+                <div>salam</div>
+                <div>salam</div>
+                <div>salam</div>
+                <div>salam</div>
+                <div>salam</div>
+                <div>salam</div>
+                <div>salam</div>
+                <div>salam</div>
+                <div>salam</div>
+                <div>salam</div>
+                <div>salam</div>
+                <div>salam</div>
+                <div>salam</div>
+                <div>salam</div>
+                <div>salam</div>
+                <div>salam</div>
+                <div>bb</div>
+            </div> */}
             {/* <Row className={styles.headerContainer}>
                 <Col className={styles.opetionContainer}>
                     <TfiReload className={`${styles.icons}`} onClick={() => {
@@ -101,30 +122,16 @@ export default function FileManager({ selectedFile = null, fileTypes = null }) {
                     </div>
                 </Col>
             </Row> */}
-            <div className='flex grow items-center justify-center'>
-                {/* {loading ?
-                    <div class="flex">
-                        <div class="relative">
-                            <div class="w-12 h-12 rounded-full animate-spin absolute
-                            border-8 border-solid border-purple-500 border-t-transparent"></div>
-                        </div>
-                    </div>
-                    : null}
-                {error ?
-                    <div className='flex content-center justify-center '>
-                        <span>{error}</span>
-                    </div>
-                    : null} */}
+            {/* <div className='flex absolute top-0 bottom-0 left-0 right-0 grow items-center z-0 justify-center'>
                 {statusElement()}
-
-                {/* <Files files={content}
-                        baseUrl={baseUrl}
-                        file={file}
-                        setFile={setfile} setPath={setPath}
-                        selectedFile={selectedFile}
-                        fileTypes={fileTypes}
-                    /> */}
-            </div>
-        </div>
+            </div> */}
+            <Files files={content}
+                baseUrl={baseUrl}
+                file={file}
+                setFile={setfile} setPath={setPath}
+                selectedFile={selectedFile}
+                fileTypes={fileTypes}
+            />
+        </>
     )
 }

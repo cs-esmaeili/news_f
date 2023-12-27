@@ -1,16 +1,11 @@
-import styles from '@/styles/filemanager.module.scss';
-import { cModalContext } from '@/app/contexts/cModal';
-import { Container, Row, Col, Spinner, Button } from 'react-bootstrap';
 import { PiFolderFill } from "react-icons/pi";
 import { BsImageFill, BsFileEarmarkFill } from "react-icons/bs";
 import { AiTwotoneVideoCamera } from "react-icons/ai";
-import { useContext } from 'react';
 import Image from 'next/image';
-import Filemanager from '../../app/dashboard/(main)/filemanager/page';
+import Filemanager from '@/app/dashboard/(main)/filemanager/page';
 
 export default function Files({ files, baseUrl, file, setFile, setPath, selectedFile, fileTypes }) {
 
-    const { cModalStatus, cModalUpdater } = useContext(cModalContext);
 
 
     const isImageFileName = (fileName) => {
@@ -28,17 +23,17 @@ export default function Files({ files, baseUrl, file, setFile, setPath, selected
 
     const fileIcon = (tempfile) => {
         if (isImageFileName(tempfile)) {
-            return (<BsImageFill size={"3.5rem"} className={styles.image} />);
+            return (<BsImageFill size={"3.5rem"} />);
         } else if (isVideoFileName(tempfile)) {
-            return (<AiTwotoneVideoCamera size={"3.5rem"} className={styles.video} />);
+            return (<AiTwotoneVideoCamera size={"3.5rem"} />);
         } else {
-            return (<BsFileEarmarkFill size={"3.5rem"} className={styles.file} />);
+            return (<BsFileEarmarkFill size={"3.5rem"} />);
         }
     }
 
     const Folders = (folder, index) => {
         return (
-            <Col key={index} xl={(selectedFile) ? 2 : 1} lg={(selectedFile) ? 2 : 1} md={2} sm={3} className={`${styles.file} ${(file == folder) ? styles.fileActive : null}`}
+            <div className="flex flex-col items-center h-max xl:w-1/12 lg:w-1/6 md:w-1/6 sm:w-1/4  w-1/2 " key={index}
                 onClick={() => {
                     setFile(folder);
                 }}
@@ -47,18 +42,18 @@ export default function Files({ files, baseUrl, file, setFile, setPath, selected
                 }}
             >
                 <div>
-                    <PiFolderFill size={"3.5rem"} className={styles.folder} />
+                    <PiFolderFill size={"3.5rem"} />
                 </div>
-                <span className={styles.fileName}>
+                <div className="block text-ellipsis overflow-hidden whitespace-nowrap w-full text-center">
                     {folder}
-                </span>
-            </Col>
+                </div>
+            </div>
         );
     }
 
     const Files = (tempfile, index) => {
         return (
-            <Col key={index} xl={(selectedFile) ? 2 : 1} lg={(selectedFile) ? 2 : 1} md={2} sm={3} className={`${styles.file} ${(file == tempfile) ? styles.fileActive : null}`}
+            <div key={index}
                 onClick={() => {
                     setFile(tempfile);
                 }}
@@ -68,8 +63,8 @@ export default function Files({ files, baseUrl, file, setFile, setPath, selected
                             <Container>
                                 <Row>
                                     {(loading) ?
-                                        <div className={styles.spinnerContainerModal} >
-                                            <Spinner className={styles.spinner} animation="border" variant="warning" />
+                                        <div  >
+                                            <Spinner animation="border" variant="warning" />
                                         </div>
                                         : null}
                                     <Image
@@ -106,14 +101,14 @@ export default function Files({ files, baseUrl, file, setFile, setPath, selected
                 <div>
                     {fileIcon(tempfile)}
                 </div>
-                <span className={styles.fileName}>
+                <span >
                     {tempfile.substring(tempfile.length - 10, tempfile.length)}
                 </span>
-            </Col>
+            </div>
         );
     }
     return (
-        <Row>
+        <div className='flex  grow flex-wrap   p-2 overflow-auto  xl:gap-10 lg:gap-8 '>
             {files && files.folders.map((folder, index) => {
                 if (file == null && index == 0) {
                     setFile(folder);
@@ -135,6 +130,6 @@ export default function Files({ files, baseUrl, file, setFile, setPath, selected
                     return Files(file, index);
                 }
             })}
-        </Row>
+        </div>
     )
 }

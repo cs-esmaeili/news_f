@@ -8,7 +8,7 @@ const MiniProfile = ({ sliderIsOpen }) => {
 
   return (
     <div
-      className="flex ml-3 relative"
+      className="relative ml-3 flex"
       onClick={() => {
         setOpen(!open);
       }}
@@ -20,7 +20,7 @@ const MiniProfile = ({ sliderIsOpen }) => {
         width={50}
         height={50}
       />
-      <div className="flex-col ml-3 text-center hidden sm:flex">
+      <div className="ml-3 hidden flex-col text-center sm:flex">
         <span>Javad Esmaeili</span>
         <span>Admin</span>
       </div>
@@ -29,7 +29,7 @@ const MiniProfile = ({ sliderIsOpen }) => {
         className={
           !open
             ? "hidden"
-            : "flex flex-wrap  rounded-md min-w-max absolute top-[100%] mt-2 right-0 bg-secondary p-3"
+            : "absolute right-0  top-[100%] mt-2 flex min-w-max flex-wrap rounded-md bg-secondary p-3"
         }
       >
         <div className="flex flex-col justify-center text-center">
@@ -46,7 +46,7 @@ const MiniProfile = ({ sliderIsOpen }) => {
               <span className="opacity-75">Admin</span>
             </div>
           </div>
-          <hr className=" mt-2 mb-2" />
+          <hr className=" mb-2 mt-2" />
           <div>Main menu</div>
           <div className="flex flex-row">
             <div className="flex">
@@ -54,7 +54,7 @@ const MiniProfile = ({ sliderIsOpen }) => {
               <span className="ml-2">Dark Mode</span>
             </div>
             <div className="flex">
-              <FaBell className="text-2xl ml-3" />
+              <FaBell className="ml-3 text-2xl" />
               <span className="ml-2">Notifications</span>
             </div>
           </div>
