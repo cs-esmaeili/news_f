@@ -1,134 +1,62 @@
 import { PiFolderFill } from "react-icons/pi";
 import { BsImageFill, BsFileEarmarkFill } from "react-icons/bs";
-import { AiTwotoneVideoCamera } from "react-icons/ai";
-import Image from 'next/image';
+import { BsPersonVideo2 } from "react-icons/bs";
 import Filemanager from '@/app/dashboard/(main)/filemanager/page';
+import { useModalContext } from '@/components/dashboard/Modal';
+import { useEffect } from "react";
+import ImageModal from "../Modals/ImageModal";
 
-export default function Files({ files, baseUrl, file, setFile, setPath, selectedFile, fileTypes }) {
+export default function Files({ files, baseUrl, selectedFile, setSelectedFile, setPath, fileTypes }) {
+
+    const { isModalOpen, openModal, closeModal, setBody } = useModalContext();
 
 
-
-    const isImageFileName = (fileName) => {
-        const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.svg'];
-        const extension = fileName.toLowerCase().substring(fileName.lastIndexOf('.'));
-
-        return imageExtensions.includes(extension);
-    }
-    const isVideoFileName = (fileName) => {
-        const videoExtensions = ['.mp4', '.mov', '.avi', '.mkv', '.wmv'];
-        const extension = fileName.toLowerCase().substring(fileName.lastIndexOf('.'));
-
-        return videoExtensions.includes(extension);
-    };
-
-    const fileIcon = (tempfile) => {
-        if (isImageFileName(tempfile)) {
-            return (<BsImageFill size={"3.5rem"} />);
-        } else if (isVideoFileName(tempfile)) {
-            return (<AiTwotoneVideoCamera size={"3.5rem"} />);
-        } else {
-            return (<BsFileEarmarkFill size={"3.5rem"} />);
+    const File = (file, index) => {
+        const { name, type } = file;
+        let icon = null;
+        if (selectedFile == null && index == 0) {
+            setSelectedFile(name);
         }
-    }
-
-    const Folders = (folder, index) => {
+        if (type == "folder") {
+            icon = <PiFolderFill size={"3.5rem"} className="text-yellow-400" />;
+        } else if (type == "image") {
+            icon = <BsImageFill size={"3.5rem"} className="text-green-400" />;
+        } else if (type == "video") {
+            icon = <BsPersonVideo2 size={"3.5rem"} className="text-red-500" />;
+        } else if (type == "file") {
+            icon = <BsFileEarmarkFill size={"3.5rem"} />;
+        }
         return (
-            <div className="flex flex-col items-center h-max xl:w-1/12 lg:w-1/6 md:w-1/6 sm:w-1/4  w-1/2 " key={index}
+            <div className={`flex cursor-pointer flex-col items-center h-max xl:w-1/12 lg:w-1/6 md:w-1/6 sm:w-1/4 w-1/2 ${(selectedFile == name) ? "bg-secondary rounded-lg" : ""}`} key={index}
                 onClick={() => {
-                    setFile(folder);
+                    setSelectedFile(name);
+                    if (type == 'image') {
+                        setBody(<ImageModal baseUrl={baseUrl} image={name} hash={file.hash} size={file.size} />);
+                        openModal();
+                    }
                 }}
                 onDoubleClick={() => {
-                    setPath(prevPath => [...prevPath, folder]);
+                    setPath(prevPath => [...prevPath, file]);
                 }}
             >
                 <div>
-                    <PiFolderFill size={"3.5rem"} />
+                    {icon}
                 </div>
                 <div className="block text-ellipsis overflow-hidden whitespace-nowrap w-full text-center">
-                    {folder}
+                    {name}
                 </div>
             </div>
         );
     }
 
-    const Files = (tempfile, index) => {
-        return (
-            <div key={index}
-                onClick={() => {
-                    setFile(tempfile);
-                }}
-                onDoubleClick={() => {
-                    const loadImageModal = (loading) => {
-                        const element = (
-                            <Container>
-                                <Row>
-                                    {(loading) ?
-                                        <div  >
-                                            <Spinner animation="border" variant="warning" />
-                                        </div>
-                                        : null}
-                                    <Image
-                                        onLoad={() => {
-                                            loadImageModal(false);
-                                        }}
-                                        loader={() => (baseUrl + tempfile)}
-                                        src={baseUrl + tempfile}
-                                        alt="Picture of the author"
-                                        width={500}
-                                        height={500} />
-                                </Row>
-                            </Container>
-                        );
-                        cModalUpdater({
-                            status: true,
-                            status: true,
-                            title: "image",
-                            body: element,
-                            footer: (selectedFile != null) ? <Button onClick={() => {
-                                cModalUpdater({
-                                    status: true,
-                                    title: null,
-                                    body: <Filemanager selectedFile={selectedFile} />,
-                                });
-                            }}>Back</Button> : null,
-                        });
-                    }
 
-                    if (isImageFileName(tempfile)) {
-                        loadImageModal(true);
-                    }
-                }}>
-                <div>
-                    {fileIcon(tempfile)}
-                </div>
-                <span >
-                    {tempfile.substring(tempfile.length - 10, tempfile.length)}
-                </span>
-            </div>
-        );
-    }
+    useEffect(() => {
+    }, []);
+
     return (
         <div className='flex  grow flex-wrap   p-2 overflow-auto  xl:gap-10 lg:gap-8 '>
-            {files && files.folders.map((folder, index) => {
-                if (file == null && index == 0) {
-                    setFile(folder);
-                }
-                return Folders(folder, index);
-            })}
             {files && files.files.map((file, index) => {
-                if (file == null && index == 0) {
-                    setFile(file);
-                }
-
-                if (fileTypes == null) {
-                    return Files(file, index);
-                } else if (fileTypes == "image" && !isImageFileName(file)) {
-                    return null;
-                } else if (fileTypes == "video" && !isVideoFileName(file)) {
-                    return null;
-                } else {
-                    return Files(file, index);
-                }
+                return File(file, index);
             })}
         </div>
     )

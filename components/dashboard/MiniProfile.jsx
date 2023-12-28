@@ -29,7 +29,7 @@ const MiniProfile = ({ sliderIsOpen }) => {
         className={
           !open
             ? "hidden"
-            : "absolute right-0  top-[100%] mt-2 flex min-w-max flex-wrap rounded-md bg-secondary p-3"
+            : "absolute right-0  top-[100%] mt-2 flex min-w-max flex-wrap rounded-md bg-secondary p-3 z-10"
         }
       >
         <div className="flex flex-col justify-center text-center">

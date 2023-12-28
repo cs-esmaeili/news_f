@@ -8,20 +8,15 @@ import { folderFileList as RfolderFileList } from '@/services/Filemanager';
 // import Rename from '@/components/dashboard/filemanager/Rename';
 // import Folder from '@/components/dashboard/filemanager/Folder';
 import Files from '@/components/dashboard/filemanager/Files';
-import { useModalContext } from '@/components/dashboard/Modal';
 
-export default function FileManager({ selectedFile = null, fileTypes = null }) {
+export default function FileManager({ fileTypes = null}) {
 
 
     const [path, setPath] = useState([]);
     const [content, setContent] = useState(null);
     const [baseUrl, setBaseUrl] = useState(null);
     const [status, setStatus] = useState(false);
-
-    const { isModalOpen, openModal, closeModal, setBody } = useModalContext();
-
-
-    const [file, setfile] = useState(null);
+    const [selectedFile, setSelectedFile] = useState(null);
 
     const folderFileList = async () => {
         try {
@@ -53,11 +48,11 @@ export default function FileManager({ selectedFile = null, fileTypes = null }) {
         folderFileList();
     }, [path]);
 
-    useEffect(() => {
-        if (selectedFile != null && file != null && file.includes('.')) {
-            selectedFile(baseUrl + file);
-        }
-    }, [file]);
+    // useEffect(() => {
+    //     if (selectedFile != null && file != null && file.includes('.')) {
+    //         selectedFile(baseUrl + file);
+    //     }
+    // }, [selectedfile]);
 
     const statusElement = () => {
         if (status === true) {
@@ -77,25 +72,6 @@ export default function FileManager({ selectedFile = null, fileTypes = null }) {
 
     return (
         <>
-            {/* <div className='flex  grow flex-col overflow-auto '>
-                <div>salam</div>
-                <div>salam</div>
-                <div>salam</div>
-                <div>salam</div>
-                <div>salam</div>
-                <div>salam</div>
-                <div>salam</div>
-                <div>salam</div>
-                <div>salam</div>
-                <div>salam</div>
-                <div>salam</div>
-                <div>salam</div>
-                <div>salam</div>
-                <div>salam</div>
-                <div>salam</div>
-                <div>salam</div>
-                <div>bb</div>
-            </div> */}
             {/* <Row className={styles.headerContainer}>
                 <Col className={styles.opetionContainer}>
                     <TfiReload className={`${styles.icons}`} onClick={() => {
@@ -125,11 +101,12 @@ export default function FileManager({ selectedFile = null, fileTypes = null }) {
             {/* <div className='flex absolute top-0 bottom-0 left-0 right-0 grow items-center z-0 justify-center'>
                 {statusElement()}
             </div> */}
-            <Files files={content}
+            <Files
+                files={content}
                 baseUrl={baseUrl}
-                file={file}
-                setFile={setfile} setPath={setPath}
                 selectedFile={selectedFile}
+                setSelectedFile={setSelectedFile}
+                setPath={setPath}
                 fileTypes={fileTypes}
             />
         </>

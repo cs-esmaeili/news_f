@@ -18,15 +18,15 @@ export const ModalProvider = ({ children }) => {
       <div
         className={
           isModalOpen
-            ? "absolute bottom-0 left-0 right-0 top-0 z-10 flex items-center justify-center"
+            ? "absolute bottom-0 left-0 right-0 top-0 z-20 flex items-center justify-center"
             : "hidden"
         }
       >
         <div
-          className="w-100% fixed bottom-0 left-0 right-0 top-0 z-0 h-screen cursor-pointer bg-black opacity-50"
+          className="w-100% fixed bottom-0 left-0 right-0 top-0 z-20 h-screen cursor-pointer bg-black opacity-50"
           onClick={closeModal}
         />
-        <div className="z-10 h-max rounded-md bg-primary p-4">{body}</div>
+        <div className="z-20 h-max rounded-md bg-primary p-4">{body}</div>
       </div>
       {children}
     </ModalContext.Provider>
