@@ -5,6 +5,8 @@ import Filemanager from '@/app/dashboard/(main)/filemanager/page';
 import { useModalContext } from '@/components/dashboard/Modal';
 import { useEffect } from "react";
 import ImageModal from "../Modals/ImageModal";
+import VideoModal from './../Modals/VideoModal';
+
 
 export default function Files({ files, baseUrl, selectedFile, setSelectedFile, setPath, fileTypes }) {
 
@@ -30,13 +32,17 @@ export default function Files({ files, baseUrl, selectedFile, setSelectedFile, s
             <div className={`flex cursor-pointer flex-col items-center h-max xl:w-1/12 lg:w-1/6 md:w-1/6 sm:w-1/4 w-1/2 ${(selectedFile == name) ? "bg-secondary rounded-lg" : ""}`} key={index}
                 onClick={() => {
                     setSelectedFile(name);
+                }}
+                onDoubleClick={() => {
                     if (type == 'image') {
                         setBody(<ImageModal baseUrl={baseUrl} image={name} hash={file.hash} size={file.size} />);
                         openModal();
+                    } else if (type == 'folder') {
+                        setPath(prevPath => [...prevPath, file]);
+                    } else if (type == 'video') {
+                        setBody(<VideoModal baseUrl={baseUrl} video={name} />);
+                        openModal();
                     }
-                }}
-                onDoubleClick={() => {
-                    setPath(prevPath => [...prevPath, file]);
                 }}
             >
                 <div>
@@ -54,7 +60,7 @@ export default function Files({ files, baseUrl, selectedFile, setSelectedFile, s
     }, []);
 
     return (
-        <div className='flex  grow flex-wrap   p-2 overflow-auto  xl:gap-10 lg:gap-8 '>
+        <div className='flex  grow flex-wrap   p-2 overflow-auto  xl:gap-10 lg:gap-8 z-0'>
             {files && files.files.map((file, index) => {
                 return File(file, index);
             })}
