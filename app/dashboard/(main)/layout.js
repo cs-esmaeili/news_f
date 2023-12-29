@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Header from '@/components/dashboard/Header';
 import Sidebar from '@/components/dashboard/Sidebar';
 import { ModalProvider } from '@/components/dashboard/Modal';
+import { Toaster } from 'react-hot-toast';
 import '@/styles/globals.css';
 
 
@@ -31,6 +32,7 @@ export default function Layout({ children }) {
       <body>
         <div className='bg-primary flex h-screen '>
           <ModalProvider>
+            <Toaster position="top-center" />
             <Sidebar open={open} setOpen={setOpen} />
             <div className={open ? "opacity-50 bg-black w-100% h-screen z-20 top-0 left-0 right-0 bottom-0 fixed cursor-pointer" : "hidden"}
               onClick={() => setOpen(!open)} />

@@ -1,4 +1,3 @@
-import styles from '@/styles/filemanager.module.scss';
 import toast from 'react-hot-toast';
 import { IoMdTrash } from 'react-icons/io';
 import {
@@ -7,7 +6,7 @@ import {
 } from '@/services/Filemanager';
 
 
-export default function DeleteFile({ path, file, reloadFileList }) {
+export default function DeleteFile({ path, file, refreshList }) {
 
 
     const deleteFile = async () => {
@@ -16,7 +15,7 @@ export default function DeleteFile({ path, file, reloadFileList }) {
             const { data } = await RdeleteFile({ location, fileName: file });
             const { message } = data;
             toast.success(message);
-            reloadFileList();
+            refreshList();
         } catch (error) {
             if (error?.response?.data?.message) {
                 toast.error(error.response.data.message);
@@ -45,7 +44,7 @@ export default function DeleteFile({ path, file, reloadFileList }) {
     }
 
     return (
-        <IoMdTrash className={`${styles.icons} ${styles.red}`} onClick={() => {
+        <IoMdTrash className="text-red-400 text-xl"  onClick={() => {
             if (!file.includes(".")) {
                 deleteFolder(file);
             } else {

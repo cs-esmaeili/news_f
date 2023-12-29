@@ -10,7 +10,7 @@ import { GiOpenTreasureChest } from "react-icons/gi";
 
 const Header = ({ open, setOpen }) => {
   return (
-    <div className="flex items-center  p-2">
+    <div className="flex items-center p-2">
       <RiMenu3Line
         className="mr-3 text-2xl lg:hidden"
         onClick={() => setOpen(!open)}

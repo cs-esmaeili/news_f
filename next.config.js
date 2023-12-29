@@ -8,8 +8,14 @@ const nextConfig = {
 
     return config;
   },
+  reactStrictMode: true,
   images: {
-    domains: ['localhost'],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      }
+    ],
   },
 };
 

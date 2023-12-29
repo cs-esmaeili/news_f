@@ -1,11 +1,9 @@
-import styles from '@/styles/filemanager.module.scss';
 import { PiUploadBold } from 'react-icons/pi';
 import { saveFile as RsaveFile, } from '@/services/Filemanager';
-import { ProgressBar } from 'react-bootstrap';
 import { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 
-export default function UploadFile({ path, reloadFileList }) {
+export default function UploadFile({ path, refreshList }) {
 
     const [inputOpen, setInputOpen] = useState(false);
     const [persent, setPersent] = useState(0);
@@ -30,7 +28,7 @@ export default function UploadFile({ path, reloadFileList }) {
 
             const { message } = data;
             setInputOpen(false);
-            reloadFileList();
+            refreshList();
             toast.success(message);
 
         } catch (error) {
@@ -47,8 +45,8 @@ export default function UploadFile({ path, reloadFileList }) {
 
     return (
         <>
-            <span className={styles.inputBar}>
-                <PiUploadBold className={`${styles.icons} ${styles.green}`} onClick={() => {
+            <span >
+                <PiUploadBold  onClick={() => {
                     if (!inputOpen) {
                         fileInputRef.current.click();
                     }
@@ -63,7 +61,7 @@ export default function UploadFile({ path, reloadFileList }) {
                     style={{ display: "none" }}
                     onChange={saveFile}
                 />
-                <ProgressBar now={persent} label={`${persent}%`} className={`${styles.progressBar} ${(inputOpen) ? styles.open : null}`} />
+                {/* <ProgressBar now={persent} label={`${persent}%`}  /> */}
             </span>
         </>
 
