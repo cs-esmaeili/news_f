@@ -16,17 +16,16 @@ export const ModalProvider = ({ children }) => {
       value={{ isModalOpen, openModal, closeModal, setBody }}
     >
       <div
-        className={
+        class={
           isModalOpen
-            ? "absolute bottom-0 left-0 right-0 top-0 z-20 flex items-center justify-center"
+            ? "fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20 cursor-pointer"
             : "hidden"
         }
+        onClick={(e) => {closeModal(); e.stopPropagation()}}
       >
-        <div
-          className="w-100% fixed bottom-0 left-0 right-0 top-0 z-20 h-screen cursor-pointer bg-black opacity-50"
-          onClick={closeModal}
-        />
-        <div className="z-20 h-max rounded-md bg-primary p-4">{body}</div>
+        <div class="w-max rounded-md bg-primary">
+          <div class="p-2">{body}</div>
+        </div>
       </div>
       {children}
     </ModalContext.Provider>

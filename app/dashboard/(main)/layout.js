@@ -29,12 +29,12 @@ export default function Layout({ children }) {
   return (
     <html lang="en">
       <body>
-        <div className='bg-primary flex h-screen'>
+        <div className='bg-primary flex h-screen '>
           <ModalProvider>
             <Sidebar open={open} setOpen={setOpen} />
             <div className={open ? "opacity-50 bg-black w-100% h-screen z-20 top-0 left-0 right-0 bottom-0 fixed cursor-pointer" : "hidden"}
               onClick={() => setOpen(!open)} />
-            <div className='flex grow flex-col h-screen '>
+            <div className='flex grow flex-col h-screen  max-w-full'>
               <Header open={open} setOpen={setOpen} />
               <div className="flex relative grow border-solid border-yellow-400 border-2  overflow-hidden">
                 {children}

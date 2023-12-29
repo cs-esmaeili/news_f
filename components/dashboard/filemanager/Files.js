@@ -6,6 +6,7 @@ import { useModalContext } from '@/components/dashboard/Modal';
 import { useEffect } from "react";
 import ImageModal from "../Modals/ImageModal";
 import VideoModal from './../Modals/VideoModal';
+import Image from 'next/image';
 
 
 export default function Files({ files, baseUrl, selectedFile, setSelectedFile, setPath, fileTypes }) {
@@ -29,13 +30,13 @@ export default function Files({ files, baseUrl, selectedFile, setSelectedFile, s
             icon = <BsFileEarmarkFill size={"3.5rem"} />;
         }
         return (
-            <div className={`flex cursor-pointer flex-col items-center h-max xl:w-1/12 lg:w-1/6 md:w-1/6 sm:w-1/4 w-1/2 ${(selectedFile == name) ? "bg-secondary rounded-lg" : ""}`} key={index}
+            <div className={`flex cursor-pointer flex-col mt-5 sm:mt-4 md:mt-3 lg:mt-0 items-center h-max xl:w-1/12 lg:w-1/6 md:w-1/6 sm:w-1/4 w-1/2 ${(selectedFile == name) ? "bg-secondary rounded-lg" : ""}`} key={index}
                 onClick={() => {
                     setSelectedFile(name);
                 }}
                 onDoubleClick={() => {
                     if (type == 'image') {
-                        setBody(<ImageModal baseUrl={baseUrl} image={name} hash={file.hash} size={file.size} />);
+                        setBody(<ImageModal baseUrl={baseUrl} image={name} blurHash={file.blurHash} size={file.size} />);
                         openModal();
                     } else if (type == 'folder') {
                         setPath(prevPath => [...prevPath, file]);
@@ -60,7 +61,7 @@ export default function Files({ files, baseUrl, selectedFile, setSelectedFile, s
     }, []);
 
     return (
-        <div className='flex  grow flex-wrap   p-2 overflow-auto  xl:gap-10 lg:gap-8 z-0'>
+        <div className='flex   flex-wrap p-2  overflow-x-hidden overflow-y-auto  xl:gap-10 lg:gap-8 z-0'>
             {files && files.files.map((file, index) => {
                 return File(file, index);
             })}
