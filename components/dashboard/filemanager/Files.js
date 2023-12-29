@@ -61,7 +61,7 @@ export default function Files({ files, baseUrl, selectedFile, setSelectedFile, s
     }, []);
 
     return (
-        <div className='flex   flex-wrap p-2  overflow-x-hidden overflow-y-auto  xl:gap-10 lg:gap-8 z-0'>
+        <div className='flex  h-max  flex-wrap p-2  overflow-x-hidden overflow-y-auto  xl:gap-10 lg:gap-8   bg-red z-0'>
             {files && files.files.map((file, index) => {
                 return File(file, index);
             })}
