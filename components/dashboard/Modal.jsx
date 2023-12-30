@@ -15,18 +15,19 @@ export const ModalProvider = ({ children }) => {
     <ModalContext.Provider
       value={{ isModalOpen, openModal, closeModal, setBody }}
     >
-      <div
-        className={
-          isModalOpen
-            ? "fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20 cursor-pointer"
-            : "hidden"
-        }
-        onClick={(e) => {closeModal(); e.stopPropagation()}}
-      >
-        <div className="w-max rounded-md bg-primary">
-          <div className="p-2">{body}</div>
+      {isModalOpen && (
+        <div
+          className="fixed inset-0 z-20 flex cursor-pointer items-center justify-center bg-black bg-opacity-50"
+          onClick={(e) => {
+            closeModal();
+            e.stopPropagation();
+          }}
+        >
+          <div className="w-max rounded-md bg-primary">
+            <div className="p-2">{body}</div>
+          </div>
         </div>
-      </div>
+      )}
       {children}
     </ModalContext.Provider>
   );

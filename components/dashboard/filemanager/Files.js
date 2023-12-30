@@ -9,7 +9,7 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { folderFileList as RfolderFileList } from '@/services/Filemanager';
 
-export default function Files({ path ,selectedFile, setSelectedFile, setPath, refreshList , fileTypes }) {
+export default function Files({ path, selectedFile, setSelectedFile, setPath, refreshList, fileTypes }) {
 
     const { isModalOpen, openModal, closeModal, setBody } = useModalContext();
     const [files, setFiles] = useState(null);
@@ -25,7 +25,7 @@ export default function Files({ path ,selectedFile, setSelectedFile, setPath, re
             const { data } = await RfolderFileList({ location: path });
             setFiles(data.files);
             setBaseUrl(data.baseUrl);
-            setSelectedFile(data.files[0].name);
+            // setSelectedFile(data.files[0].name);
             console.log(data.files);
             if (data.files.length == 0) {
                 setStatus('مسیر خالی میباشد');
@@ -92,7 +92,7 @@ export default function Files({ path ,selectedFile, setSelectedFile, setPath, re
                         setBody(<ImageModal baseUrl={baseUrl} image={name} blurHash={file.blurHash} size={file.size} />);
                         openModal();
                     } else if (type == 'folder') {
-                        setPath(prevPath => [...prevPath, file]);
+                        setPath([...path, name]);
                     } else if (type == 'video') {
                         setBody(<VideoModal baseUrl={baseUrl} video={name} />);
                         openModal();
@@ -112,11 +112,11 @@ export default function Files({ path ,selectedFile, setSelectedFile, setPath, re
 
     useEffect(() => {
         folderFileList();
-    }, [refreshList]);
+    }, [refreshList, path]);
 
     return (
-        <>
+        <div className='relative flex flex-col grow max-w-full max-h-full overflow-hidden'>
             {statusElement()}
-        </>
+        </div>
     )
 }

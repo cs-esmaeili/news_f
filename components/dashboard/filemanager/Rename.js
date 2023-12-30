@@ -1,13 +1,13 @@
-import styles from '@/styles/filemanager.module.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
     renameFolder as RrenameFolder,
     renameFile as RrenameFile,
 } from '@/services/Filemanager';
 import { BiSolidEdit } from 'react-icons/bi';
+import Input from '@/components/dashboard/Input';
 import toast from 'react-hot-toast';
 
-export default function Rename({ path, file, reloadFileList }) {
+export default function Rename({ path, file, refreshList }) {
 
     const [inputOpen, setInputOpen] = useState(false);
 
@@ -17,7 +17,7 @@ export default function Rename({ path, file, reloadFileList }) {
             const { data } = await RrenameFolder({ location: path, oldName: file, newName });
             const { message } = data;
             toast.success(message);
-            reloadFileList();
+            refreshList();
         } catch (error) {
             if (error?.response?.data?.message) {
                 toast.error(error.response.data.message);
@@ -32,7 +32,7 @@ export default function Rename({ path, file, reloadFileList }) {
             const { data } = await RrenameFile({ location: path, oldName: file, newName });
             const { message } = data;
             toast.success(message);
-            reloadFileList();
+            refreshList();
         } catch (error) {
             if (error?.response?.data?.message) {
                 toast.error(error.response.data.message);
@@ -43,23 +43,31 @@ export default function Rename({ path, file, reloadFileList }) {
     }
 
     return (
-        <>
-            <span className={styles.inputBar}>
-                <BiSolidEdit className={`${styles.icons} ${styles.blue}`} onClick={() => {
-                    setInputOpen(!inputOpen);
-                }} />
-                <input className={`${styles.input} ${(inputOpen) ? styles.open : null}`} placeholder='search something...' onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                        if (file.includes(".")) {
-                            renameFile(e.target.value);
-                        } else {
-                            renameFolder(e.target.value);
+        <div className='flex items-center'>
+            <BiSolidEdit className='text-xl text-blue-400' onClick={() => {
+                setInputOpen(!inputOpen);
+            }} />
+            {inputOpen &&
+                <Input
+                    placeholder={"Rename to ..."}
+                    color={"bg-primary"}
+                    autoFocus
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            if (file.includes(".")) {
+                                renameFile(e.target.value);
+                            } else {
+                                renameFolder(e.target.value);
+                            }
+                            setInputOpen(false);
+                            e.target.value = "";
                         }
+                    }}
+                    onBlur={() => {
                         setInputOpen(false);
-                        e.target.value = "";
-                    }
-                }} />
-            </span>
-        </>
+                    }}
+                />
+            }
+        </div>
     )
 }

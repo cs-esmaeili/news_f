@@ -33,7 +33,7 @@ export default function DeleteFile({ path, file, refreshList }) {
             const { data } = await RdeleteFolder({ location });
             const { message } = data;
             toast.success(message);
-            reloadFileList();
+            refreshList();
         } catch (error) {
             if (error?.response?.data?.message) {
                 toast.error(error.response.data.message);
@@ -44,7 +44,7 @@ export default function DeleteFile({ path, file, refreshList }) {
     }
 
     return (
-        <IoMdTrash className="text-red-400 text-xl"  onClick={() => {
+        <IoMdTrash className="text-red-500 text-xl"  onClick={() => {
             if (!file.includes(".")) {
                 deleteFolder(file);
             } else {

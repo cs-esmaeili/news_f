@@ -2,12 +2,11 @@ import { PiUploadBold } from 'react-icons/pi';
 import { saveFile as RsaveFile, } from '@/services/Filemanager';
 import { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
+import ProgressBar from '@/components/dashboard/ProgressBar';
 
 export default function UploadFile({ path, refreshList }) {
 
-    const [inputOpen, setInputOpen] = useState(false);
     const [persent, setPersent] = useState(0);
-
     const fileInputRef = useRef(null);
 
     const saveFile = async (event) => {
@@ -21,13 +20,9 @@ export default function UploadFile({ path, refreshList }) {
             setPersent(0);
             const { data } = await RsaveFile(formData, (persent) => {
                 setPersent(persent);
-                if (persent > 1 && inputOpen == false) {
-                    setInputOpen(true);
-                }
             });
-
+            setPersent(0);
             const { message } = data;
-            setInputOpen(false);
             refreshList();
             toast.success(message);
 
@@ -39,31 +34,28 @@ export default function UploadFile({ path, refreshList }) {
                 toast.error('Something is wrong!');
             }
             setPersent(0);
-            setInputOpen(false);
         }
     }
 
     return (
-        <>
-            <span >
-                <PiUploadBold  onClick={() => {
-                    if (!inputOpen) {
-                        fileInputRef.current.click();
-                    }
-                }} />
-                <input
-                    id="file"
-                    type="file"
-                    accept="image/*, video/*"
-                    aria-describedby="file"
-                    multiple
-                    ref={fileInputRef}
-                    style={{ display: "none" }}
-                    onChange={saveFile}
-                />
-                {/* <ProgressBar now={persent} label={`${persent}%`}  /> */}
-            </span>
-        </>
+        <div className='flex text-center'>
+            <PiUploadBold className='text-green-400 text-xl' onClick={() => {
+                fileInputRef.current.click();
+            }} />
+            <input
+                id="file"
+                type="file"
+                accept="image/*, video/*"
+                aria-describedby="file"
+                multiple
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                onChange={saveFile}
+            />
+            <div className={persent != 0 ? 'w-40 ml-1 mr-2' : "hidden"}>
+                <ProgressBar progress={persent} />
+            </div>
+        </div>
 
     )
 }

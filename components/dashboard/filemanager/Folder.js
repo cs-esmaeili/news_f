@@ -1,10 +1,10 @@
-import styles from '@/styles/filemanager.module.scss';
 import { useState } from 'react';
 import { createFolder as RcreateFolder } from '@/services/Filemanager';
 import { BiSolidFolderPlus } from 'react-icons/bi';
+import Input from '@/components/dashboard/Input';
 import toast from 'react-hot-toast';
 
-export default function Folder({ path, reloadFileList }) {
+export default function Folder({ path, refreshList }) {
 
 
     const [inputOpen, setInputOpen] = useState(false);
@@ -14,7 +14,7 @@ export default function Folder({ path, reloadFileList }) {
             const { data } = await RcreateFolder({ location: path, folderName });
             const { message } = data;
             toast.success(message);
-            reloadFileList();
+            refreshList();
         } catch (error) {
             if (error?.response?.data?.message) {
                 toast.error(error.response.data.message);
@@ -24,19 +24,27 @@ export default function Folder({ path, reloadFileList }) {
         }
     }
     return (
-        <>
-            <span className={styles.inputBar}>
-                <BiSolidFolderPlus className={`${styles.icons} ${styles.yellow}`} onClick={() => {
-                    setInputOpen(!inputOpen);
-                }} />
-                <input className={`${styles.input} ${(inputOpen) ? styles.open : null}`} placeholder='search something...' onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                        createFolder(e.target.value);
+        <div className='flex items-center'>
+            <BiSolidFolderPlus className='text-xl text-yellow-400' onClick={() => {
+                setInputOpen(!inputOpen);
+            }} />
+            {inputOpen &&
+                <Input
+                    placeholder={"Rename to ..."}
+                    color={"bg-primary"}
+                    autoFocus
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            createFolder(e.target.value);
+                            setInputOpen(false);
+                            e.target.value = "";
+                        }
+                    }}
+                    onBlur={() => {
                         setInputOpen(false);
-                        e.target.value = "";
-                    }
-                }} />
-            </span>
-        </>
+                    }}
+                />
+            }
+        </div>
     )
 }
