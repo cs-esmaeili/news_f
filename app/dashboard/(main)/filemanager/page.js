@@ -9,13 +9,19 @@ import Folder from '@/components/dashboard/filemanager/Folder';
 import Files from '@/components/dashboard/filemanager/Files';
 import Input from '@/components/dashboard/Input';
 
-export default function FileManager({ fileTypes = null }) {
+export default function FileManager({ fileType = null, fileSelectListener }) {
 
 
     const [path, setPath] = useState([]);
     const [selectedFile, setSelectedFile] = useState(null);
     const [refreshList, setRefreshList] = useState(false);
+    const [baseUrl, setBaseUrl] = useState(null);
 
+    useEffect(() => {
+        if (fileSelectListener != null && selectedFile != null && selectedFile.type != "folder") {
+            fileSelectListener({ baseUrl, file: selectedFile });
+        }
+    }, [selectedFile]);
 
 
 
@@ -29,9 +35,9 @@ export default function FileManager({ fileTypes = null }) {
                     <PiKeyReturnBold className="text-purple-400 text-xl" onClick={() => {
                         setPath(path.slice(0, -1));
                     }} />
-                    <Delete path={path} file={selectedFile} refreshList={() => setRefreshList(!refreshList)} />
+                    <Delete path={path} file={(selectedFile) ? selectedFile.name : null} refreshList={() => setRefreshList(!refreshList)} />
                     <Upload path={path} refreshList={() => setRefreshList(!refreshList)} />
-                    <Rename path={path} file={selectedFile} refreshList={() => setRefreshList(!refreshList)} />
+                    <Rename path={path} file={(selectedFile) ? selectedFile.name : null} refreshList={() => setRefreshList(!refreshList)} />
                     <Folder path={path} refreshList={() => setRefreshList(!refreshList)} />
                 </div>
                 <div className='flex grow basis-8 mb-2 justify-center mr-2 ml-2'>
@@ -40,19 +46,21 @@ export default function FileManager({ fileTypes = null }) {
                     </span>
                 </div>
                 <div className='flex grow basis-1 mb-2'>
-                    <Input placeholder={"test"}
+                    <Input placeholder={"search..."}
                         icon={<PiKeyReturnBold className='text-xl' />}
                         color={"bg-primary"} />
                 </div>
             </div>
-                <Files
-                    selectedFile={selectedFile}
-                    setSelectedFile={setSelectedFile}
-                    setPath={setPath}
-                    path={path}
-                    fileTypes={fileTypes}
-                    refreshList={refreshList}
-                />
+            <Files
+                selectedFile={selectedFile}
+                setSelectedFile={setSelectedFile}
+                setPath={setPath}
+                path={path}
+                fileType={fileType}
+                refreshList={refreshList}
+                setBaseUrl={setBaseUrl}
+                baseUrl={baseUrl}
+            />
         </div>
     )
 }

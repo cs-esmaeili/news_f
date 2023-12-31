@@ -45,7 +45,11 @@ export default function Rename({ path, file, refreshList }) {
     return (
         <div className='flex items-center'>
             <BiSolidEdit className='text-xl text-blue-400' onClick={() => {
-                setInputOpen(!inputOpen);
+                if (file == null) {
+                    toast.error("ابتدا فایلی را انتخاب کنید");
+                } else {
+                    setInputOpen(!inputOpen);
+                }
             }} />
             {inputOpen &&
                 <Input

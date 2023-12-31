@@ -19,12 +19,14 @@ export const ModalProvider = ({ children }) => {
         <div
           className="fixed inset-0 z-20 flex cursor-pointer items-center justify-center bg-black bg-opacity-50"
           onClick={(e) => {
-            closeModal();
             e.stopPropagation();
+            closeModal();
           }}
         >
           <div className="w-max rounded-md bg-primary">
-            <div className="p-2">{body}</div>
+            <div className="p-2" onClick={(e) => e.stopPropagation()}>
+              {body}
+            </div>
           </div>
         </div>
       )}

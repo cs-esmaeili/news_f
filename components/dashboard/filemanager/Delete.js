@@ -44,8 +44,10 @@ export default function DeleteFile({ path, file, refreshList }) {
     }
 
     return (
-        <IoMdTrash className="text-red-500 text-xl"  onClick={() => {
-            if (!file.includes(".")) {
+        <IoMdTrash className="text-red-500 text-xl" onClick={() => {
+            if (file == null) {
+                toast.error("ابتدا فایلی را انتخاب کنید");
+            } else if (file.type == "folder") {
                 deleteFolder(file);
             } else {
                 deleteFile(file);

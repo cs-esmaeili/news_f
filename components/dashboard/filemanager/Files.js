@@ -1,19 +1,16 @@
 import { PiFolderFill } from "react-icons/pi";
 import { BsImageFill, BsFileEarmarkFill } from "react-icons/bs";
 import { BsPersonVideo2 } from "react-icons/bs";
-import Filemanager from '@/app/dashboard/(main)/filemanager/page';
 import { useModalContext } from '@/components/dashboard/Modal';
 import ImageModal from "../Modals/ImageModal";
 import VideoModal from './../Modals/VideoModal';
-import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { folderFileList as RfolderFileList } from '@/services/Filemanager';
 
-export default function Files({ path, selectedFile, setSelectedFile, setPath, refreshList, fileTypes }) {
+export default function Files({ path, selectedFile, setSelectedFile, setPath, refreshList, baseUrl, setBaseUrl, fileType }) {
 
     const { isModalOpen, openModal, closeModal, setBody } = useModalContext();
     const [files, setFiles] = useState(null);
-    const [baseUrl, setBaseUrl] = useState(null);
     const [status, setStatus] = useState(false);
 
     const folderFileList = async () => {
@@ -25,8 +22,7 @@ export default function Files({ path, selectedFile, setSelectedFile, setPath, re
             const { data } = await RfolderFileList({ location: path });
             setFiles(data.files);
             setBaseUrl(data.baseUrl);
-            // setSelectedFile(data.files[0].name);
-            console.log(data.files);
+            // setSelectedFile(data.files[0]);
             if (data.files.length == 0) {
                 setStatus('مسیر خالی میباشد');
             } else {
@@ -70,6 +66,9 @@ export default function Files({ path, selectedFile, setSelectedFile, setPath, re
     }
     const File = (file, index) => {
         const { name, type } = file;
+        if (fileType != null && type != fileType) {
+            return null;
+        }
         let icon = null;
 
         if (type == "folder") {
@@ -82,10 +81,11 @@ export default function Files({ path, selectedFile, setSelectedFile, setPath, re
             icon = <BsFileEarmarkFill size={"3.5rem"} />;
         }
         return (
-            <div className={`flex cursor-pointer flex-col mt-5 sm:mt-4 md:mt-3 lg:mt-0 items-center h-max xl:w-1/12 lg:w-1/6 md:w-1/6 sm:w-1/4 w-1/2 ${(selectedFile == name) ? "bg-secondary rounded-lg" : ""}`}
+            <div className={`flex cursor-pointer flex-col mt-5 sm:mt-4 md:mt-3 lg:mt-0 items-center h-max xl:w-1/12 lg:w-1/6 md:w-1/6 sm:w-1/4 w-1/2 
+            ${(selectedFile !== null && selectedFile.name === name) ? "bg-secondary rounded-lg" : ""}`}
                 key={index}
                 onClick={() => {
-                    setSelectedFile(name);
+                    setSelectedFile(file);
                 }}
                 onDoubleClick={() => {
                     if (type == 'image') {

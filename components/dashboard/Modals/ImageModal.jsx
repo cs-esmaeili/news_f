@@ -13,7 +13,7 @@ const ImageModal = ({ baseUrl, image, blurHash, size }) => {
         layout="responsive"
         placeholder="blur"
         blurDataURL={blurHash}
-        onClick={(e) => {console.log("sasa"); e.stopPropagation();}}
+        onClick={(e) => {e.stopPropagation();}}
       />
     </div>
   );
