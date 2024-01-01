@@ -1,10 +1,10 @@
-import styles from '@/styles/filemanager.module.scss';
 import { IoMdTrash } from 'react-icons/io';
 import { deleteCategory as RdeleteCategory } from '@/services/Category';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
+import Input from '@/components/dashboard/Input';
 
-export default function DeleteCategory({ row, categoryList }) {
+export default function DeleteCategory({ row, categoryList, index, categorys }) {
 
     const [inputOpen, setInputOpen] = useState(false);
 
@@ -25,17 +25,39 @@ export default function DeleteCategory({ row, categoryList }) {
 
 
     return (
-        <div className={styles.inputBar}>
-            <IoMdTrash className={`${styles.icons} ${styles.red}`} onClick={() => {
+        <div className='flex items-center'>
+            <IoMdTrash className='text-xl text-blue-400' onClick={() => {
                 setInputOpen(!inputOpen);
             }} />
-            <input className={`${styles.input} ${(inputOpen) ? styles.open : null}`} placeholder='search something...' onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                    deleteCategory(e.target.value == "" ? null : e.target.value);
-                    setInputOpen(false);
-                    e.target.value = "";
-                }
-            }} />
+            {inputOpen &&
+                <Input
+                    placeholder={"Rename to ..."}
+                    color={"bg-primary"}
+                    autoFocus
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            if (e.target.value == null || e.target.value == "") {
+                                toast.error("شماره دسته بندی جایگزین را وارد کنید");
+                            } else if (index + 1 == e.target.value) {
+                                toast.error("باید دسته بندی جدیدی را انتخاب کنید");
+                            } else {
+                                for (let i = 0; i < categorys.length; i++) {
+                                    if (i == e.target.value) {
+                                        deleteCategory(categorys[i]._id);
+                                        setInputOpen(false);
+                                        e.target.value = "";
+                                        categoryList();
+                                    }
+                                }
+                            }
+
+                        }
+                    }}
+                    onBlur={() => {
+                        setInputOpen(false);
+                    }}
+                />
+            }
         </div>
     )
 }
