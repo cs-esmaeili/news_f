@@ -6,6 +6,7 @@ import Delete from '@/components/dashboard/category/Delete';
 import { categoryList as RcategoryList } from '@/services/Category';
 import toast from 'react-hot-toast';
 import Table from '@/components/dashboard/Table';
+import Pagination from '@/components/dashboard/Pagination';
 
 
 export default function Category({ pickMode, selectedCategory }) {
@@ -13,7 +14,7 @@ export default function Category({ pickMode, selectedCategory }) {
 
     const [categorys, setCategorys] = useState(null);
     const [categorysCount, setCategorysCount] = useState(null);
-    const [page, setPage] = useState(1);
+    const [activePage, setActivePage] = useState(1);
     const [perPage, setPerPage] = useState(5);
 
     const [updateData, setUpdateData] = useState(null);
@@ -22,11 +23,10 @@ export default function Category({ pickMode, selectedCategory }) {
 
     const categoryList = async () => {
         try {
-            const { data } = await RcategoryList({ page, perPage });
+            const { data } = await RcategoryList({ page: activePage, perPage });
             const { categorysCount, categorys } = data;
             setCategorys(categorys);
             setCategorysCount(categorysCount);
-            console.log(data);
         } catch (error) {
             if (error?.response?.data?.message) {
                 toast.error(error.response.data.message);
@@ -38,7 +38,7 @@ export default function Category({ pickMode, selectedCategory }) {
 
     useEffect(() => {
         categoryList();
-    }, [page]);
+    }, [activePage]);
 
     useEffect(() => {
         console.log(updateData);
@@ -49,7 +49,7 @@ export default function Category({ pickMode, selectedCategory }) {
             <div>
                 <Create categoryList={categoryList} updateData={updateData} setUpdateData={(value) => setUpdateData(value)} />
             </div>
-            <div className='flex grow w-full p-4 overflow-x-scroll'>
+            <div className='flex grow w-full p-2 overflow-x-scroll'>
                 {categorys &&
                     <Table
                         headers={[
@@ -78,28 +78,7 @@ export default function Category({ pickMode, selectedCategory }) {
                     />
                 }
             </div>
-            {/* {categorys != null ?
-                <Table
-                    headers={['Id', 'Name', 'UpdatedAt', "Actions"]}
-                    allowHeaders={['_id', 'name', 'updatedAt']}
-                    rows={categorys}
-                    selectMode={pickMode}
-                    selectedRow={(row) => selectedCategory(row)}
-                    special={(row) => {
-                        return (
-                            <td className={styles.col} style={{ display: "flex" }}>
-                                <Delete row={row} categoryList={categoryList} />
-                                <BiSolidEdit className={`${styles.icons} ${styles.blue}`} onClick={() => {
-                                    setUpdateData(row);
-                                }} />
-                            </td>
-                        )
-                    }}
-                />
-                :
-                null
-            }
-            <PaginationLayout page={page} perPage={perPage} count={categorysCount} setPage={(value) => { setPage(value); console.log(value) }} /> */}
+            <Pagination activePage={activePage} perPage={perPage} count={categorysCount} setActivePage={setActivePage} />
 
         </div>
 
