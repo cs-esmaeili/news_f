@@ -7,6 +7,7 @@ const Table = ({
   special,
   selectMode,
   selectListener,
+  rowCountstart,
 }) => {
   return (
     <table className="w-full table-auto">
@@ -33,12 +34,10 @@ const Table = ({
           >
             <td className="h-[1px]  p-0 pb-1">
               <div className="flex h-full items-center justify-center rounded-s-xl bg-secondary p-1">
-                {indexParent + 1}
+                {indexParent + 1 + rowCountstart}
               </div>
             </td>
             {Object.entries(contentParent).map(([key, value], indexChild) => {
-              //   const containsObject = allowHeaders.some((item) => item.name == key);
-
               let containsObject = false;
               let cssClass = null;
               for (let i = 0; i < allowHeaders.length; i++) {
@@ -54,14 +53,7 @@ const Table = ({
                     key={indexChild}
                   >
                     <div
-                      className={`flex h-full grow flex-wrap items-center justify-center
-                       ${indexChild == 0 && "rounded-s-xl"} 
-                       ${
-                         indexChild ==
-                           Object.entries(contentParent).length - 1 && ""
-                         //  "rounded-e-xl"
-                       } 
-                       bg-secondary  p-1`}
+                      className={`flex h-full grow flex-wrap items-center justify-center bg-secondary  p-1`}
                     >
                       {value}
                     </div>

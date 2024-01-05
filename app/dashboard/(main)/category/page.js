@@ -13,7 +13,7 @@ export default function Category({ pickMode, selectedCategory }) {
 
 
     const [categorys, setCategorys] = useState(null);
-    const [categorysCount, setCategorysCount] = useState(null);
+    const [categorysCount, setCategorysCount] = useState(null); // 0   / 6  / 12
     const [activePage, setActivePage] = useState(1);
     const [perPage, setPerPage] = useState(6);
 
@@ -60,6 +60,7 @@ export default function Category({ pickMode, selectedCategory }) {
                             { name: 'updatedAt', cssClass: "hidden sm:table-cell" }
                         ]}
                         rows={categorys}
+                        rowCountstart={(perPage * (activePage - 1))}
                         selectMode={true}
                         selectListener={(row, index) => { console.log(row) }}
                         special={(row, index) => {

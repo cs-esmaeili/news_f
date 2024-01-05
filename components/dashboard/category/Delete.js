@@ -12,8 +12,8 @@ export default function DeleteCategory({ row, categoryList, index, categorys }) 
         try {
             const { data } = await RdeleteCategory({ category_id: row._id, newCategory_id });
             const { message } = data;
-            categoryList();
             toast.success(message);
+            categoryList();
         } catch (error) {
             if (error?.response?.data?.message) {
                 toast.error(error.response.data.message);
@@ -31,7 +31,7 @@ export default function DeleteCategory({ row, categoryList, index, categorys }) 
             }} />
             {inputOpen &&
                 <Input
-                    placeholder={"Rename to ..."}
+                    placeholder={"Replace to ..."}
                     color={"bg-primary"}
                     autoFocus
                     onKeyDown={(e) => {
@@ -41,14 +41,10 @@ export default function DeleteCategory({ row, categoryList, index, categorys }) 
                             } else if (index + 1 == e.target.value) {
                                 toast.error("باید دسته بندی جدیدی را انتخاب کنید");
                             } else {
-                                for (let i = 0; i < categorys.length; i++) {
-                                    if (i == e.target.value) {
-                                        deleteCategory(categorys[i]._id);
-                                        setInputOpen(false);
-                                        e.target.value = "";
-                                        categoryList();
-                                    }
-                                }
+                                deleteCategory(e.target.value);
+                                setInputOpen(false);
+                                e.target.value = "";
+                                categoryList();
                             }
 
                         }
