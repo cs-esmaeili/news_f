@@ -15,9 +15,9 @@ export default function Category({ pickMode, selectedCategory }) {
     const [categorys, setCategorys] = useState(null);
     const [categorysCount, setCategorysCount] = useState(null);
     const [activePage, setActivePage] = useState(1);
-    const [perPage, setPerPage] = useState(5);
+    const [perPage, setPerPage] = useState(6);
 
-    const [updateData, setUpdateData] = useState(null);
+    const [editData, setEditData] = useState(null);
 
 
 
@@ -40,14 +40,10 @@ export default function Category({ pickMode, selectedCategory }) {
         categoryList();
     }, [activePage]);
 
-    useEffect(() => {
-        console.log(updateData);
-    }, [updateData]);
-
     return (
         <div className='flex flex-col w-full'>
             <div>
-                <Create categoryList={categoryList} updateData={updateData} setUpdateData={(value) => setUpdateData(value)} />
+                <Create categoryList={categoryList} editData={editData} setEditData={setEditData} />
             </div>
             <div className='flex grow w-full p-2 overflow-x-scroll'>
                 {categorys &&
@@ -71,6 +67,9 @@ export default function Category({ pickMode, selectedCategory }) {
                                 <td className="h-[1px]  p-0 pb-1">
                                     <div className="flex h-full items-center justify-center rounded-e-xl bg-secondary p-1 text-nowrap">
                                         <Delete row={row} index={index} categoryList={categoryList} categorys={categorys} />
+                                        <BiSolidEdit className='text-xl ml-4 text-blue-400' onClick={() => {
+                                            setEditData(row);
+                                        }} />
                                     </div>
                                 </td>
                             )

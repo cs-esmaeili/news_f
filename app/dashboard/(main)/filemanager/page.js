@@ -35,7 +35,7 @@ export default function FileManager({ fileType = null, fileSelectListener }) {
                     <PiKeyReturnBold className="text-purple-400 text-xl" onClick={() => {
                         setPath(path.slice(0, -1));
                     }} />
-                    <Delete path={path} file={(selectedFile) ? selectedFile.name : null} refreshList={() => setRefreshList(!refreshList)} />
+                    <Delete path={path} file={(selectedFile) ? selectedFile : null} refreshList={() => setRefreshList(!refreshList)} />
                     <Upload path={path} refreshList={() => setRefreshList(!refreshList)} />
                     <Rename path={path} file={(selectedFile) ? selectedFile.name : null} refreshList={() => setRefreshList(!refreshList)} />
                     <Folder path={path} refreshList={() => setRefreshList(!refreshList)} />

@@ -1,7 +1,4 @@
 {
     "app_name": "News",
-    "api": "http://localhost:3000/",
-    "site_url": "http://localhost:3001/site/",
-    "dashboard_url": "http://localhost:3001/dashboard/filemanager",
-    "logo_url": "http://localhost/shop/system/logo.png"
+    "api": "http://localhost:3000/"
 }

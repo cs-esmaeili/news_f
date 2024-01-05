@@ -26,7 +26,7 @@ export default function DeleteCategory({ row, categoryList, index, categorys }) 
 
     return (
         <div className='flex items-center'>
-            <IoMdTrash className='text-xl text-blue-400' onClick={() => {
+            <IoMdTrash className='text-xl text-red-400' onClick={() => {
                 setInputOpen(!inputOpen);
             }} />
             {inputOpen &&

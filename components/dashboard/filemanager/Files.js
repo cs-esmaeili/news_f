@@ -85,6 +85,7 @@ export default function Files({ path, selectedFile, setSelectedFile, setPath, re
             ${(selectedFile !== null && selectedFile.name === name) ? "bg-secondary rounded-lg" : ""}`}
                 key={index}
                 onClick={() => {
+                    file.path = path
                     setSelectedFile(file);
                 }}
                 onDoubleClick={() => {

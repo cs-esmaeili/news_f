@@ -12,7 +12,7 @@ export default function DeleteFile({ path, file, refreshList }) {
     const deleteFile = async () => {
         try {
             let location = [...path];
-            const { data } = await RdeleteFile({ location, fileName: file });
+            const { data } = await RdeleteFile({ location, fileName: file.name });
             const { message } = data;
             toast.success(message);
             refreshList();
@@ -27,9 +27,9 @@ export default function DeleteFile({ path, file, refreshList }) {
 
 
     const deleteFolder = async () => {
+        console.log("dad");
         try {
-            let location = [...path];
-            location.push(file);
+            let location = [...path, file.name];
             const { data } = await RdeleteFolder({ location });
             const { message } = data;
             toast.success(message);
@@ -45,12 +45,13 @@ export default function DeleteFile({ path, file, refreshList }) {
 
     return (
         <IoMdTrash className="text-red-500 text-xl" onClick={() => {
+
             if (file == null) {
                 toast.error("ابتدا فایلی را انتخاب کنید");
             } else if (file.type == "folder") {
-                deleteFolder(file);
+                deleteFolder();
             } else {
-                deleteFile(file);
+                deleteFile();
             }
         }} />
     )

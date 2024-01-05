@@ -5,18 +5,13 @@ import { createCategory as RcreateCategory, updateCategory as RupdateCategory } 
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 
-export default function CreateCategory({ categoryList, updateData, setUpdateData }) {
+export default function CreateCategory({ categoryList, editData, setEditData }) {
 
     const { isModalOpen, openModal, closeModal, setBody } = useModalContext();
 
     const [editMode, setEditMode] = useState(false);
     const [image, setImage] = useState(null);
     const [name, setName] = useState("");
-
-    const [createStatus, setCreateStatus] = useState(false);
-
-
-
 
     const createCategory = async () => {
         try {
@@ -35,12 +30,12 @@ export default function CreateCategory({ categoryList, updateData, setUpdateData
         }
     }
 
-    const updateCategory = async (category_id) => {
+    const updateCategory = async () => {
         try {
-            const { data } = await RupdateCategory({ category_id: updateData._id, name, image });
+            const { data } = await RupdateCategory({ category_id: editData._id, name, image: image.url });
             const { message } = data;
             toast.success(message);
-            setUpdateData(null);
+            setEditData(null);
             categoryList();
         } catch (error) {
             if (error?.response?.data?.message) {
@@ -52,21 +47,23 @@ export default function CreateCategory({ categoryList, updateData, setUpdateData
     }
 
     useEffect(() => {
-        if (updateData != null) {
-            setImage(updateData.image);
-            setName(updateData.name);
+        if (editData != null) {
+            setImage(editData.image);
+            setName(editData.name);
+            setEditMode(true);
         } else {
             setImage(null);
             setName("");
+            setEditMode(false);
         }
-    }, [updateData]);
+    }, [editData]);
+
     useEffect(() => {
-        if (!editMode && name != "" && image != null) {
-            setCreateStatus(true);
-        } else {
-            setCreateStatus(false);
+        if(name == ""){
+            console.log("haha");
         }
-    }, [editMode, image, name]);
+    }, [name]);
+
 
     return (
         <div className='flex  relative bg-secondary h-[15rem] p-4'>
@@ -94,28 +91,31 @@ export default function CreateCategory({ categoryList, updateData, setUpdateData
                     </div>
                     <div className='mt-2 w-full'>
                         <div className='flex mb-2'>
-                            {editMode &&
-                                <button className='bg-green-500 rounded-md p-1 w-full'>Done</button>
-                            }
-                            <button className={`${(createStatus) ? "bg-green-400 text-black" : "bg-blue-500 text-white"}  rounded-md p-1 w-full ${editMode && "ml-2"}`}
-                                onClick={(e) => {
-                                    if (createStatus) {
-                                        createCategory();
+                            {(image != null && (name != null && name != "")) &&
+                                <button className='bg-green-500 rounded-md p-1 w-full mr-2' onClick={() => {
+                                    if (editMode) {
+                                        updateCategory();
                                     } else {
-                                        setBody(<Filemanager fileType={"image"} fileSelectListener={(selectedFile) => {
-                                            const { baseUrl, file } = selectedFile;
-                                            setImage({ url: baseUrl + file.name, blurHash: file.blurHash });
-                                            closeModal();
-                                        }} />);
-                                        openModal();
+                                        createCategory();
                                     }
+                                }}>{(editMode) ? "Done" : "Create"}</button>
+                            }
+                            <button className={`bg-blue-500 text-white rounded-md p-1 w-full ${editMode && "ml-2"}`}
+                                onClick={(e) => {
+                                    setBody(<Filemanager fileType={"image"} fileSelectListener={(selectedFile) => {
+                                        const { baseUrl, file } = selectedFile;
+                                        console.log(selectedFile);
+                                        setImage({ url: baseUrl + file.name, blurHash: file.blurHash });
+                                        closeModal();
+                                    }} />);
+                                    openModal();
                                 }}>
-                                {(createStatus) ? "Create" : "Select"}
+                                Select
                             </button>
                         </div>
                         {editMode &&
                             <div>
-                                <button className='bg-red-500 rounded-md p-1 w-full'>Cancel Edit</button>
+                                <button className='bg-red-500 rounded-md p-1 w-full' onClick={() => setEditData(null)}>Cancel Edit</button>
                             </div>
                         }
                     </div>
