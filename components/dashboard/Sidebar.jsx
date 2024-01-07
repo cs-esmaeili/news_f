@@ -1,8 +1,26 @@
-import { useState, useEffect } from "react";
+import { PiFolderFill } from "react-icons/pi";
+import { usePathname } from 'next/navigation';
+import { MdSpaceDashboard } from "react-icons/md";
+import { BiSolidCategoryAlt } from "react-icons/bi";
+import { MdPostAdd } from "react-icons/md";
+
 import Image from "next/image";
 import { FaHouseChimney } from "react-icons/fa6";
+import Link from "next/link";
 
 const Sidebar = ({ open, setOpen }) => {
+
+  const pathname = usePathname();
+  console.log(pathname);
+
+  const items = [
+    { name: "Dashboard", url: "/dashboard", icon: <MdSpaceDashboard className="text-2xl" /> },
+    { name: "File Manager", url: "/dashboard/filemanager", icon: <PiFolderFill className="text-2xl" /> },
+    { name: "Category", url: "/dashboard/category", icon: <BiSolidCategoryAlt className="text-2xl" /> },
+    { name: "Create Post", url: "/dashboard/post/createPost", icon: <MdPostAdd className="text-2xl" /> },
+  ];
+
+
   return (
     <div
       className={
@@ -33,22 +51,21 @@ const Sidebar = ({ open, setOpen }) => {
         <span className="ml-3"> Javad Esmaeili </span>
       </div>
       <div>
-        <div className="mb-5 flex items-center p-3 text-dactive ">
-          <FaHouseChimney className="text-2xl" />
-          <span className="ml-3">Home</span>
-        </div>
-        <div className="mb-5 flex items-center p-3 text-dactive ">
-          <FaHouseChimney className="text-2xl" />
-          <span className="ml-3">Home</span>
-        </div>
-        <div className="bg-siebar_item mb-5 flex items-center rounded-lg bg-active_background p-3 text-accent">
-          <FaHouseChimney className="text-2xl" />
-          <span className="ml-3">Home</span>
-        </div>
-        <div className="mb-5 flex items-center p-3 text-dactive ">
-          <FaHouseChimney className="text-2xl" />
-          <span className="ml-3">Home</span>
-        </div>
+        {items.map((item, index) => {
+          const { url, icon, name } = item;
+          return (
+            <Link href={url}>
+              <div className={(pathname == url) ?
+                "bg-siebar_item mb-5 flex items-center rounded-lg bg-active_background p-3 text-accent"
+                :
+                "mb-5 flex items-center p-3 text-dactive"
+              }>
+                {icon}
+                <span className="ml-3">{name}</span>
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

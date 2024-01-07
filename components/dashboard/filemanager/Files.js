@@ -29,7 +29,6 @@ export default function Files({ path, selectedFile, setSelectedFile, setPath, re
                 setStatus(false);
             }
         } catch (error) {
-            console.log(error);
             if (error?.response?.data?.message) {
                 setStatus(error.response.data.message);
             } else {

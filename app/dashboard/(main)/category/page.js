@@ -9,11 +9,11 @@ import Table from '@/components/dashboard/Table';
 import Pagination from '@/components/dashboard/Pagination';
 
 
-export default function Category({ pickMode, selectListener }) {
+export default function Category({ pickMode = false, selectListener }) {
 
 
     const [categorys, setCategorys] = useState(null);
-    const [categorysCount, setCategorysCount] = useState(null); // 0   / 6  / 12
+    const [categorysCount, setCategorysCount] = useState(null);
     const [activePage, setActivePage] = useState(1);
     const [perPage, setPerPage] = useState(6);
 
