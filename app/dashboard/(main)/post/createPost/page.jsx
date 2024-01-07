@@ -10,19 +10,15 @@ const createPost = () => {
 
     const [content, setContent] = useState(
         [
-            [{ type: "Text", content: "this is text 1" }, { type: "Image", content: "" }],
-            [{ type: "Video", content: "" }, { type: "Text", content: "this is text 4" }],
-            [{ type: "Text", content: "this is text 5" }]
+            // [{ type: "Text", content: "this is text 1" }, { type: "Image", content: "" }],
+            // [{ type: "Video", content: "" }, { type: "Text", content: "this is text 4" }],
+            // [{ type: "Text", content: "this is text 5" }]
         ]
     );
 
-    useEffect(() => {
-        console.log(content);
-    }, [content]);
-
     return (
         <div className='relative flex flex-col grow max-w-full p-2 overflow-y-auto overflow-x-hidden'>
-            <PostDetails />
+            <PostDetails content={content} setContent={setContent} />
             <PostList content={content} setContent={setContent} />
             <AddPanel content={content} setContent={setContent} />
         </div>

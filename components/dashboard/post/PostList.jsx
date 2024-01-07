@@ -27,7 +27,7 @@ const PostList = ({ content, setContent }) => {
     const renderPanelContent = (innerArray, childIndex, outerArray, parentIndex) => {
         if (innerArray.type == "Text") {
             return (
-                <textarea type="text" value={content[parentIndex][childIndex].content} className='resize-none w-full min-w-0 bg-transparent' onChange={(e) => {
+                <textarea placeholder='Text Area' type="text" value={content[parentIndex][childIndex].content} className='resize-none w-full min-w-0 bg-transparent' onChange={(e) => {
                     handleItemClick("Text", e.target.value, parentIndex, childIndex);
                 }} />
             );
@@ -35,7 +35,8 @@ const PostList = ({ content, setContent }) => {
             const selectImage = () => {
                 setBody(<Filemanager fileType={"image"} fileSelectListener={(selectedFile) => {
                     const { baseUrl, file } = selectedFile;
-                    handleItemClick("Image", { url: (baseUrl + file.name), blurHash: file.blurHash }, parentIndex, childIndex);
+                    console.log(selectedFile);
+                    handleItemClick("Image", { url: (baseUrl + file.name), blurHash: file.blurHash, size: file.size }, parentIndex, childIndex);
                     closeModal();
                 }} />);
                 openModal();
@@ -50,16 +51,19 @@ const PostList = ({ content, setContent }) => {
                 );
             } else {
                 return (
-                    <Image
-                        src={innerArray.content.url}
-                        alt="Picture of the author"
-                        fill
-                        placeholder="blur"
-                        blurDataURL={innerArray.content.blurHash}
-                        onClick={(e) => {
-                            selectImage();
-                        }}
-                    />
+                    <div className='flex grow justify-center items-center w-fit'>
+                        <Image
+                            src={innerArray.content.url}
+                            alt="Picture of the author"
+                            width={innerArray.content.size.width}
+                            height={innerArray.content.size.height}
+                            placeholder="blur"
+                            blurDataURL={innerArray.content.blurHash}
+                            onClick={(e) => {
+                                selectImage();
+                            }}
+                        />
+                    </div>
                 );
             }
         } else if (innerArray.type == "Video") {
@@ -81,7 +85,7 @@ const PostList = ({ content, setContent }) => {
                 );
             } else {
                 return (
-                    <div className='w-full'>
+                    <div className='h-full bg-red-400 w-full'>
                         <VideoJS
                             options={{
                                 autoplay: false,
@@ -134,7 +138,7 @@ const PostList = ({ content, setContent }) => {
                                         }} />
                                     </div>
                                 </div>
-                                <div className="flex bg-primary relative rounded-sm p-1  h-fit min-h-52 max-h-52 grow">
+                                <div className="flex bg-primary relative rounded-sm p-1  h-fit min-h-52  grow">
                                     {renderPanelContent(innerArray, childIndex, outerArray, parentIndex)}
                                 </div>
                             </div>

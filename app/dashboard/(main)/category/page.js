@@ -9,7 +9,7 @@ import Table from '@/components/dashboard/Table';
 import Pagination from '@/components/dashboard/Pagination';
 
 
-export default function Category({ pickMode, selectedCategory }) {
+export default function Category({ pickMode, selectListener }) {
 
 
     const [categorys, setCategorys] = useState(null);
@@ -42,9 +42,11 @@ export default function Category({ pickMode, selectedCategory }) {
 
     return (
         <div className='flex flex-col w-full'>
-            <div>
-                <Create categoryList={categoryList} editData={editData} setEditData={setEditData} />
-            </div>
+            {pickMode == false &&
+                <div>
+                    <Create categoryList={categoryList} editData={editData} setEditData={setEditData} />
+                </div>
+            }
             <div className='flex grow w-full p-2 overflow-x-scroll'>
                 {categorys &&
                     <Table
@@ -62,14 +64,20 @@ export default function Category({ pickMode, selectedCategory }) {
                         rows={categorys}
                         rowCountstart={(perPage * (activePage - 1))}
                         selectMode={true}
-                        selectListener={(row, index) => { console.log(row) }}
+                        selectListener={(row, index) => { 
+                            if(pickMode){
+                                selectListener(row);
+                            }
+                         }}
                         special={(row, index) => {
                             return (
-                                <td className="h-[1px]  p-0 pb-1">
+                                <td className={`h-[1px]  p-0 pb-1 ${pickMode && "opacity-50"}`}>
                                     <div className="flex h-full items-center justify-center rounded-e-xl bg-secondary p-1 text-nowrap">
-                                        <Delete row={row} index={index} categoryList={categoryList} categorys={categorys} />
+                                        <Delete row={row} index={index} categoryList={categoryList} categorys={categorys} pickMode={pickMode} />
                                         <BiSolidEdit className='text-xl ml-4 text-blue-400' onClick={() => {
-                                            setEditData(row);
+                                            if (!pickMode) {
+                                                setEditData(row);
+                                            }
                                         }} />
                                     </div>
                                 </td>

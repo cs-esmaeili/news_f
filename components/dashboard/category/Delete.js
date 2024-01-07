@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { useState } from 'react';
 import Input from '@/components/dashboard/Input';
 
-export default function DeleteCategory({ row, categoryList, index, categorys }) {
+export default function DeleteCategory({ row, categoryList, index, categorys, pickMode }) {
 
     const [inputOpen, setInputOpen] = useState(false);
 
@@ -27,7 +27,9 @@ export default function DeleteCategory({ row, categoryList, index, categorys }) 
     return (
         <div className='flex items-center'>
             <IoMdTrash className='text-xl text-red-400' onClick={() => {
-                setInputOpen(!inputOpen);
+                if (!pickMode) {
+                    setInputOpen(!inputOpen);
+                }
             }} />
             {inputOpen &&
                 <Input
@@ -35,7 +37,7 @@ export default function DeleteCategory({ row, categoryList, index, categorys }) 
                     color={"bg-primary"}
                     autoFocus
                     onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
+                        if (!pickMode && e.key === 'Enter') {
                             if (e.target.value == null || e.target.value == "") {
                                 toast.error("شماره دسته بندی جایگزین را وارد کنید");
                             } else if (index + 1 == e.target.value) {
