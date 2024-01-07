@@ -8,7 +8,7 @@ const Sidebar = ({ open, setOpen }) => {
       className={
         open
           ? "absolute bottom-0 left-0 top-0 z-30 h-full min-w-max bg-secondary p-7 duration-500 ease-in"
-          : "absolute  left-[-100%] h-full min-w-max bg-secondary p-7 duration-500 ease-in lg:static lg:block"
+          : "absolute  left-[-100%] h-full z-30 min-w-max bg-secondary p-7 duration-500 ease-in lg:static lg:block"
       }
     >
       <div className="flex items-center justify-center">

@@ -107,7 +107,7 @@ const PostList = ({ content, setContent }) => {
                 <div className="flex gap-2 mb-2" key={parentIndex}>
                     {outerArray.map((innerArray, childIndex) => {
                         return (
-                            <div className="flex flex-col grow bg-secondary rounded-md p-2" key={childIndex}>
+                            <div className="flex flex-col grow bg-secondary rounded-md p-2 basis-0" key={childIndex}>
                                 <div className="flex justify-between items-center mb-3 max-h-5 mt-2">
                                     <span>{innerArray.type} Place</span>
                                     <div className="flex items-center gap-4 ">
@@ -123,10 +123,18 @@ const PostList = ({ content, setContent }) => {
                                             className={`text-blue-400 text-3xl opacity-50 ${innerArray.type == "Video" && "!opacity-100"}`}
                                             onClick={() => handleItemClick("Video", "", parentIndex, childIndex)}
                                         />
-                                        <RiCloseFill className="text-red-400 text-3xl" />
+                                        <RiCloseFill className="text-red-400 text-3xl" onClick={() => {
+                                            const temp = [...content];
+                                            if (temp[parentIndex].length == 1) {
+                                                temp.splice(parentIndex, 1);
+                                            } else {
+                                                temp[parentIndex].splice(childIndex, 1);
+                                            }
+                                            setContent(temp);
+                                        }} />
                                     </div>
                                 </div>
-                                <div className="bg-primary relative rounded-sm p-1 flex h-fit min-h-52 max-h-52 grow">
+                                <div className="flex bg-primary relative rounded-sm p-1  h-fit min-h-52 max-h-52 grow">
                                     {renderPanelContent(innerArray, childIndex, outerArray, parentIndex)}
                                 </div>
                             </div>
