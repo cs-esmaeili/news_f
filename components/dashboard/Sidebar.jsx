@@ -18,6 +18,7 @@ const Sidebar = ({ open, setOpen }) => {
     { name: "File Manager", url: "/dashboard/filemanager", icon: <PiFolderFill className="text-2xl" /> },
     { name: "Category", url: "/dashboard/category", icon: <BiSolidCategoryAlt className="text-2xl" /> },
     { name: "Create Post", url: "/dashboard/post/createPost", icon: <MdPostAdd className="text-2xl" /> },
+    { name: "Post List", url: "/dashboard/post/postList", icon: <MdPostAdd className="text-2xl" /> },
   ];
 
 
@@ -54,7 +55,7 @@ const Sidebar = ({ open, setOpen }) => {
         {items.map((item, index) => {
           const { url, icon, name } = item;
           return (
-            <Link href={url}>
+            <Link href={url} key={index}>
               <div className={(pathname == url) ?
                 "bg-siebar_item mb-5 flex items-center rounded-lg bg-active_background p-3 text-accent"
                 :

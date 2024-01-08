@@ -2,7 +2,7 @@ import React from "react";
 
 const Table = ({
   headers,
-  allowHeaders,
+  rowData,
   rows,
   special,
   selectMode,
@@ -11,7 +11,7 @@ const Table = ({
 }) => {
   return (
     <table className="w-full table-auto">
-      <thead>
+      <thead className="sticky top-0 bg-primary">
         <tr>
           <th>Row</th>
           {headers.map((content, index) => (
@@ -22,46 +22,37 @@ const Table = ({
         </tr>
       </thead>
       <tbody>
-        {rows.map((contentParent, indexParent) => (
+        {rows.map((row, indexRow) => (
           <tr
             className="mb-5"
-            key={indexParent}
+            key={indexRow}
             onClick={() => {
               if (selectMode) {
-                selectListener(contentParent, indexParent);
+                selectListener(row, indexRow);
               }
             }}
           >
             <td className="h-[1px]  p-0 pb-1">
               <div className="flex h-full items-center justify-center rounded-s-xl bg-secondary p-1">
-                {indexParent + 1 + rowCountstart}
+                {indexRow + 1 + rowCountstart}
               </div>
             </td>
-            {Object.entries(contentParent).map(([key, value], indexChild) => {
-              let containsObject = false;
-              let cssClass = null;
-              for (let i = 0; i < allowHeaders.length; i++) {
-                if (allowHeaders[i].name == key) {
-                  containsObject = true;
-                  cssClass = allowHeaders[i].cssClass;
-                }
-              }
-              if (containsObject) {
-                return (
-                  <td
-                    className={"h-[1px]  p-0 pb-1 " + cssClass}
-                    key={indexChild}
+            {rowData.map((col, indexCol) => {
+              const { cssClass, name } = col;
+              return (
+                <td
+                  className={"h-[1px]  p-0 pb-1 " + cssClass}
+                  key={indexCol}
+                >
+                  <div
+                    className={`flex h-full grow flex-wrap items-center justify-center bg-secondary  p-1`}
                   >
-                    <div
-                      className={`flex h-full grow flex-wrap items-center justify-center bg-secondary  p-1`}
-                    >
-                      {value}
-                    </div>
-                  </td>
-                );
-              }
+                    {row[name]}
+                  </div>
+                </td>
+              );
             })}
-            {special(contentParent, indexParent)}
+            {special(row, indexRow)}
           </tr>
         ))}
       </tbody>

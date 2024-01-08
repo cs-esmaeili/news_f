@@ -13,9 +13,9 @@ export default function Pagination({
       if (i >= activePage - tolerance && i <= activePage + tolerance) {
         renderedItems.push(
           <div
-            className={`cursor-pointer rounded-md bg-secondary p-3 hover:bg-opacity-50 ${
-              i == activePage && "text-accent"
-            }`}
+            key={i}
+            className={`cursor-pointer rounded-md bg-secondary p-3 hover:bg-opacity-50 ${i == activePage && "text-accent"
+              }`}
             onClick={() => setActivePage(i)}
           >
             {i}
@@ -24,6 +24,7 @@ export default function Pagination({
       } else if (i == 1) {
         renderedItems.push(
           <div
+            key={i}
             className="cursor-pointer rounded-md p-3"
             onClick={() => setActivePage(i)}
           >
@@ -33,6 +34,7 @@ export default function Pagination({
       } else if (i == totalPages) {
         renderedItems.push(
           <div
+            key={i}
             className="cursor-pointer rounded-md p-3"
             onClick={() => setActivePage(i)}
           >
