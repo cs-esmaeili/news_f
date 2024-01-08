@@ -2,9 +2,12 @@
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import Table from '@/components/dashboard/Table';
+import CreatePost from '@/app/dashboard/(main)/post/createPost/page';
 import Pagination from '@/components/dashboard/Pagination';
 import { postList as RpostList } from '@/services/Post';
 import { BiSolidEdit } from 'react-icons/bi';
+import { useModalContext } from '@/components/dashboard/Modal';
+import { RiCloseFill } from 'react-icons/ri';
 
 const postList = () => {
 
@@ -15,9 +18,10 @@ const postList = () => {
 
     const [editData, setEditData] = useState(null);
 
+    const { isModalOpen, openModal, closeModal, setBody } = useModalContext();
 
 
-    const categoryList = async () => {
+    const postList = async () => {
         try {
             const { data } = await RpostList({ page: activePage, perPage });
             const { postsCount, posts } = data;
@@ -33,13 +37,13 @@ const postList = () => {
     }
 
     useEffect(() => {
-        categoryList();
+        postList();
     }, [activePage]);
 
 
     return (
         <div className='flex grow flex-col overflow-hidden'>
-            <div className='flex grow overflow-y-auto overflow-x-hidden m-3 mb-0'>
+            <div className='flex grow overflow-y-auto overflow-x-hidden m-3 mb-0 basis-0 '>
                 {posts &&
                     <Table
                         headers={[
@@ -57,14 +61,13 @@ const postList = () => {
                         ]}
                         rows={posts}
                         rowCountstart={(perPage * (activePage - 1))}
-                        selectMode={true}
-                        selectListener={(row, index) => {
-                        }}
+                        selectMode={false}
                         special={(row, index) => {
                             return (
                                 <td className={`h-[1px]  p-0 pb-1`}>
                                     <div className="flex h-full items-center justify-center rounded-e-xl bg-secondary p-1 text-nowrap">
                                         <BiSolidEdit className='text-xl ml-4 text-blue-400' onClick={() => {
+                                            setEditData(row);
                                         }} />
                                     </div>
                                 </td>
@@ -73,9 +76,22 @@ const postList = () => {
                     />
                 }
             </div>
-            <div className='flex  justify-center items-center pt-3'>
+            <div className='flex  justify-center items-center pt-3 pb-5 shadow-lg'>
                 <Pagination activePage={activePage} perPage={perPage} count={postsCount} setActivePage={setActivePage} />
             </div>
+            {editData &&
+                <div className='flex flex-col grow basis-0 h-3/5 mt-3'>
+                    <div className='flex justify-end'>
+                        <RiCloseFill className='mr-2 text-red-400 text-3xl' onClick={() => {
+                            setEditData(null);
+                        }} />
+                    </div>
+                    <CreatePost editMode editData={editData} updateListener={() => {
+                        postList();
+                        setEditData(null);
+                    }} />
+                </div>
+            }
         </div>
     );
 };

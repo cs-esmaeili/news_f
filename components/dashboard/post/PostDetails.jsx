@@ -6,7 +6,7 @@ import Input from '@/components/dashboard/Input';
 import { RiCloseFill } from 'react-icons/ri';
 import toast from 'react-hot-toast';
 
-const PostDetails = ({ content, setContent }) => {
+const PostDetails = ({ content, setContent, editMode, editData, updateListener }) => {
 
     const { isModalOpen, openModal, closeModal, setBody } = useModalContext();
 
@@ -19,10 +19,19 @@ const PostDetails = ({ content, setContent }) => {
 
     const createPost = async () => {
         try {
-            const { data } = await RcreatePost({ title, disc, metaTags: tags, category_id: category._id, body: content });
+            let response = null
+            if (editMode) {
+                response = await RupdatePost({ post_id: editData._id, title, disc, metaTags: tags, category_id: category._id, body: content });
+            } else {
+                response = await RcreatePost({ title, disc, metaTags: tags, category_id: category._id, body: content });
+            }
+            let { data } = response;
             const { message } = data;
             toast.success(message);
             resetForm();
+            if (editMode) {
+                updateListener();
+            }
         } catch (error) {
             console.log(error);
             if (error?.response?.data?.message) {
@@ -48,6 +57,16 @@ const PostDetails = ({ content, setContent }) => {
             setReadyToCreate(false);
         }
     }, [tags, category, title, disc]);
+
+    useEffect(() => {
+        if (editMode) {
+            const { metaTags, category_id, title, disc } = editData;
+            setTags(metaTags);
+            setCategory(category_id);
+            setTitle(title);
+            setDisc(disc);
+        }
+    }, [editMode , editData]);
 
     return (
         <div className='sticky z-10 top-0 flex flex-col bg-secondary  p-2 mb-2 rounded-md' >
@@ -94,7 +113,7 @@ const PostDetails = ({ content, setContent }) => {
                             createPost();
                         }
                     }}>
-                    Create Post
+                    {editMode ? "Done" : "Create"}
                 </button>
                 <button className='w-full p-1 bg-green-500 rounded-md '
                     onClick={() => {

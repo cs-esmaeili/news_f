@@ -48,7 +48,7 @@ export default function Pagination({
   };
 
   return (
-    <div className={`mb-5 flex items-center justify-center gap-1 space-x-1`}>
+    <div className={`flex items-center justify-center gap-1 space-x-1`}>
       {elements()}
     </div>
   );

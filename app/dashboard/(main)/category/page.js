@@ -56,7 +56,7 @@ export default function Category({ pickMode = false, selectListener }) {
                             { name: 'UpdatedAt', cssClass: "hidden sm:table-cell" },
                             { name: 'Actions', cssClass: "" },
                         ]}
-                        allowHeaders={[
+                        rowData={[
                             { name: '_id', cssClass: "hidden lg:table-cell" },
                             { name: 'name', cssClass: "" },
                             { name: 'updatedAt', cssClass: "hidden sm:table-cell" }
