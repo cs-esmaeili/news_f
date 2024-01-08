@@ -3,6 +3,8 @@ import { usePathname } from 'next/navigation';
 import { MdSpaceDashboard } from "react-icons/md";
 import { BiSolidCategoryAlt } from "react-icons/bi";
 import { MdPostAdd } from "react-icons/md";
+import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
+import { BsShieldLockFill } from "react-icons/bs";
 
 import Image from "next/image";
 import { FaHouseChimney } from "react-icons/fa6";
@@ -18,7 +20,8 @@ const Sidebar = ({ open, setOpen }) => {
     { name: "File Manager", url: "/dashboard/filemanager", icon: <PiFolderFill className="text-2xl" /> },
     { name: "Category", url: "/dashboard/category", icon: <BiSolidCategoryAlt className="text-2xl" /> },
     { name: "Create Post", url: "/dashboard/post/createPost", icon: <MdPostAdd className="text-2xl" /> },
-    { name: "Post List", url: "/dashboard/post/postList", icon: <MdPostAdd className="text-2xl" /> },
+    { name: "Post List", url: "/dashboard/post/postList", icon: <HiOutlineClipboardDocumentList className="text-2xl" /> },
+    { name: "Permissions", url: "/dashboard/role", icon: <BsShieldLockFill className="text-2xl" /> },
   ];
 
 
