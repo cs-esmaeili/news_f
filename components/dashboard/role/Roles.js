@@ -5,7 +5,7 @@ import { ImCancelCircle } from "react-icons/im";
 import Add from './Add';
 import toast from 'react-hot-toast';
 
-export default function Roles({ setCurrentRole, setAllpermissions, updateList }) {
+export default function Roles({ setCurrentRole, setAllpermissions, updateList, selectMode, listener }) {
 
     const [roles, setRoles] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(-1);
@@ -16,9 +16,11 @@ export default function Roles({ setCurrentRole, setAllpermissions, updateList })
         try {
             const { data } = await RroleList();
             setRoles(data.roles);
-            setAllpermissions(data.permissions);
-            if (currentIndex != -1 && selectLastActiveRole) {
-                setCurrentRole(data.roles[currentIndex]);
+            if (!selectMode) {
+                setAllpermissions(data.permissions);
+                if (currentIndex != -1 && selectLastActiveRole) {
+                    setCurrentRole(data.roles[currentIndex]);
+                }
             }
         } catch (error) {
             console.log(error);
@@ -48,8 +50,10 @@ export default function Roles({ setCurrentRole, setAllpermissions, updateList })
     }
 
     const resetAllData = () => {
-        setCurrentRole(null);
-        setAllpermissions(null);
+        if (!selectMode) {
+            setCurrentRole(null);
+            setAllpermissions(null);
+        }
         setRoles(null);
         setCurrentIndex(-1);
         setDeleteMode(-1);
@@ -94,7 +98,11 @@ export default function Roles({ setCurrentRole, setAllpermissions, updateList })
                                     onClick={() => {
                                         if (deleteMode == -1) {
                                             setCurrentIndex(index);
-                                            setCurrentRole(roles[index]);
+                                            if (!selectMode) {
+                                                setCurrentRole(roles[index]);
+                                            }else{
+                                                listener(role);
+                                            }
                                         } else if (index != deleteMode) {
                                             deleteRole(roles[deleteMode]._id, role._id);
                                         }

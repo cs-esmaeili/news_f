@@ -5,6 +5,7 @@ import { BiSolidCategoryAlt } from "react-icons/bi";
 import { MdPostAdd } from "react-icons/md";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { BsShieldLockFill } from "react-icons/bs";
+import { FaUserPlus } from "react-icons/fa6";
 
 import Image from "next/image";
 import { FaHouseChimney } from "react-icons/fa6";
@@ -22,6 +23,7 @@ const Sidebar = ({ open, setOpen }) => {
     { name: "Create Post", url: "/dashboard/post/createPost", icon: <MdPostAdd className="text-2xl" /> },
     { name: "Post List", url: "/dashboard/post/postList", icon: <HiOutlineClipboardDocumentList className="text-2xl" /> },
     { name: "Permissions", url: "/dashboard/role", icon: <BsShieldLockFill className="text-2xl" /> },
+    { name: "Create User", url: "/dashboard/user/createUser", icon: <FaUserPlus className="text-2xl" /> },
   ];
 
 
