@@ -39,16 +39,13 @@ export default function DeleteCategory({ row, categoryList, index, categorys, pi
                     onKeyDown={(e) => {
                         if (!pickMode && e.key === 'Enter') {
                             if (e.target.value == null || e.target.value == "") {
-                                toast.error("شماره دسته بندی جایگزین را وارد کنید");
-                            } else if (index + 1 == e.target.value) {
-                                toast.error("باید دسته بندی جدیدی را انتخاب کنید");
+                                toast.error("ای دی دسته بندی جایگزین را وارد کنید");
                             } else {
                                 deleteCategory(e.target.value);
                                 setInputOpen(false);
                                 e.target.value = "";
                                 categoryList();
                             }
-
                         }
                     }}
                     onBlur={() => {

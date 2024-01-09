@@ -15,7 +15,7 @@ export default function CreateCategory({ categoryList, editData, setEditData }) 
 
     const createCategory = async () => {
         try {
-            const { data } = await RcreateCategory({ name, image: image.url });
+            const { data } = await RcreateCategory({ name, image });
             const { message } = data;
             toast.success(message);
             setImage(null);
@@ -32,7 +32,7 @@ export default function CreateCategory({ categoryList, editData, setEditData }) 
 
     const updateCategory = async () => {
         try {
-            const { data } = await RupdateCategory({ category_id: editData._id, name, image: image.url });
+            const { data } = await RupdateCategory({ category_id: editData._id, name, image });
             const { message } = data;
             toast.success(message);
             setEditData(null);
@@ -57,13 +57,6 @@ export default function CreateCategory({ categoryList, editData, setEditData }) 
             setEditMode(false);
         }
     }, [editData]);
-
-    useEffect(() => {
-        if(name == ""){
-            console.log("haha");
-        }
-    }, [name]);
-
 
     return (
         <div className='flex  relative bg-secondary h-[15rem] p-4'>
