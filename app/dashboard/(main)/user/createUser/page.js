@@ -1,7 +1,7 @@
 'use client'
 
 import { BsImageFill } from 'react-icons/bs';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useModalContext } from '@/components/dashboard/Modal';
 import Filemanager from '@/app/dashboard/(main)/filemanager/page';
@@ -21,6 +21,8 @@ export default function createUser() {
     const [birthday, setBirthday] = useState(null);
     const [nationalCode, setNationalCode] = useState("");
     const [shebaNumber, setShebaNumber] = useState("");
+
+    const [createStatus, setCreateStatus] = useState(false);
 
 
     const { isModalOpen, openModal, closeModal, setBody } = useModalContext();
@@ -70,7 +72,21 @@ export default function createUser() {
         }} />);
         openModal();
     }
-    registerPure
+
+    useEffect(() => {
+        if (role != null &&
+            image != null &&
+            userName != "" &&
+            fullName != "" &&
+            birthday != null &&
+            nationalCode != "" &&
+            shebaNumber != ""
+        ) {
+            setCreateStatus(true);
+        } else {
+            setCreateStatus(false);
+        }
+    }, [role, image, userName, fullName, birthday, nationalCode, shebaNumber]);
 
     return (
         <div className='flex flex-col grow max-w-full min-w-0'>
@@ -82,7 +98,7 @@ export default function createUser() {
                     <Input onChange={(e) => setNationalCode(e.target.value)} value={nationalCode} icon={<BsImageFill />} placeholder={"National_code"} color={"bg-primary"} />
                     <Input onChange={(e) => setShebaNumber(e.target.value)} value={shebaNumber} icon={<BsImageFill />} placeholder={"sheba_Number"} color={"bg-primary"} />
                     <div className='flex justify-between gap-2'>
-                        <InputDatePicker icon={<BsImageFill className=''/>} reset={birthday} onChange={(time) => setBirthday(time)} />
+                        <InputDatePicker icon={<BsImageFill className='' />} reset={birthday} onChange={(time) => setBirthday(time)} />
                         <button className='bg-accent grow text-nowrap p-1 pl-3 pr-3 rounded-md' onClick={() => {
                             setBody(<Roles selectMode listener={(role) => {
                                 const { name, _id } = role;
@@ -92,9 +108,11 @@ export default function createUser() {
                             openModal();
                         }}>{role ? role.name : "Select Role"}</button>
                     </div>
-                    <button className='bg-green-500 grow text-nowrap p-1 pl-3 pr-3 rounded-md'
+                    <button className={`bg-green-500 grow text-nowrap p-1 pl-3 pr-3 rounded-md ${!createStatus && "opacity-50"}`}
                         onClick={() => {
-                            createUser();
+                            if (createStatus) {
+                                createUser();
+                            }
                         }}
                     >
                         Create User

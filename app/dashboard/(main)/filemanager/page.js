@@ -11,7 +11,6 @@ import Input from '@/components/dashboard/Input';
 
 export default function FileManager({ fileType = null, fileSelectListener }) {
 
-
     const [path, setPath] = useState([]);
     const [selectedFile, setSelectedFile] = useState(null);
     const [refreshList, setRefreshList] = useState(false);
@@ -22,8 +21,6 @@ export default function FileManager({ fileType = null, fileSelectListener }) {
             fileSelectListener({ baseUrl, file: selectedFile });
         }
     }, [selectedFile]);
-
-
 
     return (
         <div className='flex flex-col grow max-w-full'>
