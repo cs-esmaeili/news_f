@@ -28,9 +28,11 @@ function InputDatePicker({ icon, onChange, reset, length = 3 }) {
     }
 
     useEffect(() => {
-        inputRefs.current.forEach(element => {
-            element.current.value = "";
-        });
+        if (reset == null) {
+            inputRefs.current.forEach(element => {
+                element.current.value = "";
+            });
+        }
     }, [reset]);
 
 
