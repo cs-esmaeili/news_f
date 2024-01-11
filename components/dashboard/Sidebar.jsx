@@ -23,7 +23,7 @@ const Sidebar = ({ open, setOpen }) => {
     { name: "Create Post", url: "/dashboard/post/createPost", icon: <MdPostAdd className="text-2xl" /> },
     { name: "Post List", url: "/dashboard/post/postList", icon: <HiOutlineClipboardDocumentList className="text-2xl" /> },
     { name: "Permissions", url: "/dashboard/role", icon: <BsShieldLockFill className="text-2xl" /> },
-    { name: "Create User", url: "/dashboard/user/createUser", icon: <FaUserPlus className="text-2xl" /> },
+    { name: "Users", url: "/dashboard/user", icon: <FaUserPlus className="text-2xl" /> },
   ];
 
 

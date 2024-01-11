@@ -9,6 +9,21 @@ const Table = ({
   selectListener,
   rowCountstart,
 }) => {
+
+  const ObjectbyString = (o, s) => {
+    s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+    s = s.replace(/^\./, '');           // strip a leading dot
+    var a = s.split('.');
+    for (var i = 0, n = a.length; i < n; ++i) {
+      var k = a[i];
+      if (k in o) {
+        o = o[k];
+      } else {
+        return;
+      }
+    }
+    return o;
+  }
   return (
     <table className="w-full table-auto">
       <thead className="sticky top-0 bg-primary">
@@ -47,7 +62,7 @@ const Table = ({
                   <div
                     className={`flex h-full grow flex-wrap items-center justify-center bg-secondary  p-1`}
                   >
-                    {row[name]}
+                    {ObjectbyString(row, name)}
                   </div>
                 </td>
               );

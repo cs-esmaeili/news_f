@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-function InputDatePicker({ icon, onChange, reset, length = 3 }) {
+function InputDatePicker({ icon, value, onChange, reset, length = 3 }) {
+    let inputRefs = useRef(Array.from({ length }, () => useRef(null)));
 
-    let inputRefs = useRef(Array.from({ length }, () => React.createRef()));
+    const [defaultTime, setDefaultTime] = useState(value ? value.split("-") : ["", "", ""]);
 
     const focusNextInput = (index) => {
         const nextIndex = index + 1;
@@ -19,34 +20,32 @@ function InputDatePicker({ icon, onChange, reset, length = 3 }) {
     };
 
     const onChangedDates = () => {
-        let time = "";
-        inputRefs.current.forEach(element => {
-            time += element.current.value + "-";
-        });
-        time = time.substring(0, time.length - 1);
+        let time = inputRefs.current.map((element) => element.current.value).join("-");
         onChange(time);
-    }
+    };
 
     useEffect(() => {
         if (reset == null) {
-            inputRefs.current.forEach(element => {
+            inputRefs.current.forEach((element) => {
                 element.current.value = "";
             });
         }
     }, [reset]);
 
+    useEffect(() => {
+        setDefaultTime(value ? value.split("-") : ["", "", ""]);
+        console.log(value ? value.split("-") : "");
+    }, [value]);
 
     return (
         <div className='flex items-center gap-1 bg-primary rounded-md min-w-0'>
-            <div className='flex h-full items-center ml-1'>
-                {icon}
-            </div>
+            <div className='flex h-full items-center ml-1'>{icon}</div>
             <input
-                className=' bg-transparent p-1 outline-none text-center min-w-0'
+                className='bg-transparent p-1 outline-none text-center min-w-0'
                 ref={inputRefs.current[0]}
                 placeholder='1379'
+                value={defaultTime[0]}
                 onChange={onChangedDates}
-                value={inputRefs.current[0].value}
                 onKeyDown={(e) => {
                     if (e.key === 'Backspace' && e.currentTarget.value === '') {
                         focusNextInput(0);
@@ -58,9 +57,9 @@ function InputDatePicker({ icon, onChange, reset, length = 3 }) {
             />
             <span> / </span>
             <input
-                className=' bg-transparent p-1 outline-none text-center min-w-0'
+                className='bg-transparent p-1 outline-none text-center min-w-0'
                 ref={inputRefs.current[1]}
-                value={inputRefs.current[0].value}
+                value={defaultTime[1]}
                 placeholder='01'
                 onChange={onChangedDates}
                 onKeyDown={(e) => {
@@ -74,9 +73,9 @@ function InputDatePicker({ icon, onChange, reset, length = 3 }) {
             />
             <span> / </span>
             <input
-                className=' bg-transparent p-1 outline-none text-center min-w-0'
+                className='bg-transparent p-1 outline-none text-center min-w-0'
                 ref={inputRefs.current[2]}
-                value={inputRefs.current[0].value}
+                value={defaultTime[2]}
                 placeholder='11'
                 onChange={onChangedDates}
                 onKeyDown={(e) => {
@@ -88,11 +87,8 @@ function InputDatePicker({ icon, onChange, reset, length = 3 }) {
                 }}
                 maxLength={2}
             />
-
         </div>
     );
 }
-
-
 
 export default InputDatePicker;
