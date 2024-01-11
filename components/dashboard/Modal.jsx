@@ -17,7 +17,7 @@ export const ModalProvider = ({ children }) => {
     >
       {isModalOpen && (
         <div
-          className="fixed  overflow-hidden pt-20 pb-20 max-h-full inset-0 z-20 flex cursor-pointer items-center justify-center bg-black bg-opacity-50"
+          className="fixed  overflow-hidden pt-20 pb-20 max-h-full inset-0 z-40 flex cursor-pointer items-center justify-center bg-black bg-opacity-50"
           onClick={(e) => {
             e.stopPropagation();
             closeModal();
