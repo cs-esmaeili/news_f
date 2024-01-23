@@ -27,7 +27,6 @@ export default function DeleteFile({ path, file, refreshList }) {
 
 
     const deleteFolder = async () => {
-        console.log("dad");
         try {
             let location = [...path, file.name];
             const { data } = await RdeleteFolder({ location });

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import { SlMenu } from "react-icons/sl";
+import { IoMenu } from "react-icons/io5";
 import Input from '@/components/site/Input';
 import { LuSearch } from "react-icons/lu";
 
@@ -15,26 +15,27 @@ const Header = () => {
                     objectFit="cover"
                 />
             </div>
-            <div className='flex grow  flex-wrap gap-2 items-center'>
-                <div className='flex grow justify-around'>
-                    <div>
-                        Sport
-                    </div>
-                    <div>
-                        Sport
-                    </div>
-                    <div>
-                        Sport
-                    </div>
-                    <div>
-                        Sport
-                    </div>
-                    <div>
-                        Sport
-                    </div>
+            <div className='flex grow  flex-wrap gap-2 items-center justify-around'>
+                <div>
+                    Sport
                 </div>
-                <div className='bg-primary '>
+                <div>
+                    Sport
+                </div>
+                <div>
+                    Sport
+                </div>
+                <div>
+                    Sport
+                </div>
+                <div>
+                    Sport
+                </div>
+                <div className='bg-primary'>
                     <Input icon={<LuSearch />} color={"bg-primary"} placeholder={"search something..."} />
+                </div>
+                <div>
+                    <IoMenu className='text-xl' />
                 </div>
             </div>
         </div>
