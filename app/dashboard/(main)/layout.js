@@ -30,7 +30,6 @@ export default function Layout({ children }) {
 
       let response = await RuserPermissions();
       let { data } = response;
-      console.log(data);
       await dispatch(setPermissions(data));
       setLoading(false);
     } catch (error) {
