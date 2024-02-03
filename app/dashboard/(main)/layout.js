@@ -1,18 +1,52 @@
 'use client'
 
-import { useState, useEffect } from "react";
-import Header from '@/components/dashboard/Header';
-import Sidebar from '@/components/dashboard/Sidebar';
+import { userPermissions as RuserPermissions } from '@/services/User';
 import { ModalProvider } from '@/components/dashboard/Modal';
+import Sidebar from '@/components/dashboard/Sidebar';
+import Header from '@/components/dashboard/Header';
+import { useState, useEffect } from "react";
 import { Toaster } from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { setPermissions } from '@/state/permissions';
+import httpServices from '@/services/httpServices';
+import { getCookie } from 'cookies-next';
+import toast from 'react-hot-toast';
 import '@/styles/globals.css';
-
+import { useRouter } from 'next/navigation';
 
 export default function Layout({ children }) {
 
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const { replace } = useRouter();
+
+ 
+
+  const userPsermissions = async () => {
+    try {
+      const token = getCookie('token');
+      if (token) httpServices.axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+      let response = await RuserPermissions();
+      let { data } = response;
+      console.log(data);
+      await dispatch(setPermissions(data));
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      replace("/dashboard/login");
+      if (error?.response?.data?.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error('Something is wrong!');
+      }
+    }
+
+  }
 
   useEffect(() => {
+
 
     const handleResize = () => {
       if (window.innerWidth <= 576) {
@@ -21,6 +55,7 @@ export default function Layout({ children }) {
     };
     handleResize();
     window.addEventListener('resize', handleResize);
+    userPsermissions();
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -31,18 +66,25 @@ export default function Layout({ children }) {
     <html lang="en">
       <body>
         <div className='bg-primary flex h-screen w-full max-w-full overflow-hidden'>
-          <ModalProvider>
-            <Toaster position="top-center" />
-            <Sidebar open={open} setOpen={setOpen} />
-            <div className={open ? "opacity-50 bg-black w-100% h-screen z-20 top-0 left-0 right-0 bottom-0 fixed cursor-pointer" : "hidden"}
-              onClick={() => setOpen(!open)} />
-            <div className='flex grow flex-col h-screen min-w-0 max-w-full'>
-              <Header open={open} setOpen={setOpen} />
-              <div className="flex relative grow border-solid border-yellow-400 border-2  overflow-hidden">
-                {children}
-              </div>
+          <Toaster position="top-center" />
+          {loading ?
+            <div className="relative flex flex-col gap-5 justify-center items-center h-full w-full">
+              <div className="w-32 h-32 rounded-full border-8 border-solid border-accent border-t-transparent animate-spin"></div>
+              <span>Getting User Permissions</span>
             </div>
-          </ModalProvider>
+            :
+            <ModalProvider>
+              <Sidebar open={open} setOpen={setOpen} />
+              <div className={open ? "opacity-50 bg-black w-100% h-screen z-20 top-0 left-0 right-0 bottom-0 fixed cursor-pointer" : "hidden"}
+                onClick={() => setOpen(!open)} />
+              <div className='flex grow flex-col h-screen min-w-0 max-w-full'>
+                <Header open={open} setOpen={setOpen} />
+                <div className="flex relative grow border-solid border-yellow-400 border-2  overflow-hidden">
+                  {children}
+                </div>
+              </div>
+            </ModalProvider>
+          }
         </div>
       </body>
     </html>

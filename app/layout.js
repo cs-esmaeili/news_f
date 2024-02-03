@@ -9,7 +9,7 @@ const custom = localFont({
 
 
 export const metadata = {
-  title: "sas",
+  title: "News",
   description: 'Created by Javad Esmaeili',
 }
 

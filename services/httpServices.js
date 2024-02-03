@@ -2,11 +2,9 @@ import { getCookie } from 'cookies-next';
 import axios from "axios";
 
 const token = getCookie('token');
+if (token) axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
-
-
-if (token) axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
 axios.interceptors.response.use((response) => {
     return response;

@@ -14,4 +14,7 @@ export const updateRegisterPure = (data) => {
 export const userList = (data) => {
     return http.post(`${prefixUrl}/userList`, JSON.stringify(data));
 };
+export const userPermissions = () => {
+    return http.post(`${prefixUrl}/userPermissions`);
+};
 

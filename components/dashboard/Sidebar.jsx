@@ -4,19 +4,21 @@ import { MdSpaceDashboard } from "react-icons/md";
 import { BiSolidCategoryAlt } from "react-icons/bi";
 import { MdPostAdd } from "react-icons/md";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
+import { useSelector } from 'react-redux';
 import { BsShieldLockFill } from "react-icons/bs";
 import { FaUserPlus } from "react-icons/fa6";
-
+import { useRouter } from 'next/navigation';
 import Image from "next/image";
-import { FaHouseChimney } from "react-icons/fa6";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const Sidebar = ({ open, setOpen }) => {
 
   const pathname = usePathname();
-  console.log(pathname);
+  const { replace } = useRouter();
+  const permissions = useSelector((state) => state.permissions.value);
 
-  const items = [
+  const allItems = [
     { name: "Dashboard", url: "/dashboard", icon: <MdSpaceDashboard className="text-2xl" /> },
     { name: "File Manager", url: "/dashboard/filemanager", icon: <PiFolderFill className="text-2xl" /> },
     { name: "Category", url: "/dashboard/category", icon: <BiSolidCategoryAlt className="text-2xl" /> },
@@ -26,6 +28,20 @@ const Sidebar = ({ open, setOpen }) => {
     { name: "Users", url: "/dashboard/user", icon: <FaUserPlus className="text-2xl" /> },
   ];
 
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    let tempItems = [...items];
+    allItems.forEach(item => {
+      permissions.forEach(permission => {
+        if (item.url == permission.route) {
+          tempItems.push(item);
+        }
+      });
+    });
+    setItems(tempItems);
+
+  }, []);
 
   return (
     <div

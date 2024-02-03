@@ -9,9 +9,13 @@ import toast from 'react-hot-toast';
 import { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import Timer from '@/components/dashboard/Timer';
+import { setCookie } from 'cookies-next';
+import { useDispatch } from 'react-redux';
+import { setPermissions } from '@/state/permissions';
 
 const LogIn = () => {
 
+    const dispatch = useDispatch();
     const [userName, setUserName] = useState("");
     const [code, setCode] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
@@ -48,6 +52,7 @@ const LogIn = () => {
             toast.success(data.message);
             setStep(2);
             setLoading(false);
+
         } catch (error) {
             console.log(error);
             setLoading(false);
@@ -69,6 +74,7 @@ const LogIn = () => {
             let convertedCode = code.replace(/\s/g, '');
             let response = await RlogInStepTwo({ userName, code: convertedCode });
             let { data } = response;
+            setCookie('token', data.token, { expires: new Date(new Date().getTime() + parseInt(data.sessionTime) * 60000) });
             toast.success(data.message);
             setLoading(false);
             push('/dashboard');
@@ -104,7 +110,7 @@ const LogIn = () => {
                         src="/logo.jpg"
                         alt="Picture of the author"
                         fill
-                        objectFit="cover"
+                        style={{ objectFit: "cover" }}
                     />
                 </div>
                 <div className='w-full'>
