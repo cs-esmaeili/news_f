@@ -12,7 +12,7 @@ import httpServices from '@/services/httpServices';
 import { getCookie } from 'cookies-next';
 import toast from 'react-hot-toast';
 import '@/styles/globals.css';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 export default function Layout({ children }) {
 
@@ -20,17 +20,32 @@ export default function Layout({ children }) {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const { replace } = useRouter();
+  const pathname = usePathname()
 
- 
+  const checkUserAccessToUrl = async (permissions) => {
+    let access = false;
+    permissions.forEach(element => {
+      if (element.route == pathname) {
+        access = true;
+      }
+    });
+    if (!access) {
+      throw new Error('Parameter must be a number');
+    } else {
+      return access;
+    }
+  }
 
   const userPsermissions = async () => {
     try {
+      setLoading(true);
       const token = getCookie('token');
       if (token) httpServices.axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
       let response = await RuserPermissions();
       let { data } = response;
       await dispatch(setPermissions(data));
+      await checkUserAccessToUrl(data);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -45,8 +60,6 @@ export default function Layout({ children }) {
   }
 
   useEffect(() => {
-
-
     const handleResize = () => {
       if (window.innerWidth <= 576) {
         setOpen(false);
@@ -54,11 +67,15 @@ export default function Layout({ children }) {
     };
     handleResize();
     window.addEventListener('resize', handleResize);
-    userPsermissions();
+
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    userPsermissions();
+  }, [pathname]);
 
 
   return (
