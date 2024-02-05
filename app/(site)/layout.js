@@ -7,13 +7,11 @@ export default function Layout({ children }) {
 
   return (
     <html lang="en">
-      <body>
-        <div className='flex flex-col grow  bg-primary  h-screen min-w-0 max-w-full'>
+      <body className='bg-primary_s'>
+        <div className='relative flex flex-col grow w-full  min-w-0 max-w-full items-center'>
           <Header />
-          <div className="flex flex-col relative grow border-solid p-2 overflow-y-auto overflow-x-hidden items-center border-2 border-yellow-300">
-            {children}
-            <Footer />
-          </div>
+          <div className='absolute top-0 w-full h-1/4 bg-gradient-to-b from-primary_s to-transparent z-10'></div>
+          {children}
         </div>
       </body>
     </html>
