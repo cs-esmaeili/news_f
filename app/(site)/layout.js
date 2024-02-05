@@ -8,7 +8,7 @@ export default function Layout({ children }) {
   return (
     <html lang="en">
       <body>
-        <div className='flex flex-col grow  bg-primaryflex-col h-screen min-w-0 max-w-full'>
+        <div className='flex flex-col grow  bg-primary  h-screen min-w-0 max-w-full'>
           <Header />
           <div className="flex flex-col relative grow border-solid p-2 overflow-y-auto overflow-x-hidden items-center border-2 border-yellow-300">
             {children}

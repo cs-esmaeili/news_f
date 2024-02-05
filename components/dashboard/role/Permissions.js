@@ -20,9 +20,9 @@ export default function Permissions({ allPermissions, currentRole, setUpdateList
         }
     }
 
-    useEffect(() => {
-        console.log(allPermissions);
-    }, [allPermissions, currentRole]);
+    // useEffect(() => {
+    //     console.log(allPermissions);
+    // }, [allPermissions, currentRole]);
 
 
     return (
