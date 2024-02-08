@@ -6,7 +6,7 @@ import Sidebar from '@/components/dashboard/Sidebar';
 import Header from '@/components/dashboard/Header';
 import { useState, useEffect } from "react";
 import { Toaster } from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setPermissions } from '@/state/permissions';
 import httpServices from '@/services/httpServices';
 import { getCookie } from 'cookies-next';
@@ -19,6 +19,7 @@ export default function Layout({ children }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+  const permissions = useSelector((state) => state.permissions.value);
   const { replace } = useRouter();
   const pathname = usePathname()
 
@@ -30,14 +31,20 @@ export default function Layout({ children }) {
       }
     });
     if (!access) {
-      throw new Error('Parameter must be a number');
+      throw new Error('Permission is not granted !');
     } else {
       return access;
     }
   }
 
   const userPsermissions = async () => {
+    console.log(permissions);
     try {
+      if (permissions.length != 0 && permissions != null) {
+        console.log("dada");
+        await checkUserAccessToUrl(permissions);
+        return;
+      }
       setLoading(true);
       const token = getCookie('token');
       if (token) httpServices.axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -53,10 +60,9 @@ export default function Layout({ children }) {
       if (error?.response?.data?.message) {
         toast.error(error.response.data.message);
       } else {
-        toast.error('Something is wrong!');
+        toast.error(error.message);
       }
     }
-
   }
 
   useEffect(() => {
@@ -67,7 +73,6 @@ export default function Layout({ children }) {
     };
     handleResize();
     window.addEventListener('resize', handleResize);
-
     return () => {
       window.removeEventListener('resize', handleResize);
     };
