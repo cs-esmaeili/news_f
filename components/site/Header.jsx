@@ -1,9 +1,10 @@
 import Image from 'next/image';
 import React from 'react';
+import SideBarButton from './SideBarButton';
 
 const Header = () => {
     return (
-        <div className='flex absolute  z-20  min-h-[80px] lg:max-w-[1140px] h-fit p-2 w-screen items-center overflow-hidden px-5 gap-3'>
+        <div className='flex sticky top-0   z-20  min-h-[80px] lg:max-w-[1140px] h-fit p-2 w-screen items-center overflow-hidden px-5 gap-3'>
             <div className='relative w-[50px] h-[50px] rounded-md overflow-hidden'>
                 <Image
                     src="/logo.jpg"
@@ -12,10 +13,8 @@ const Header = () => {
                     style={{ objectFit: "cover" }}
                 />
             </div>
-            <div className='flex grow gap-4'>
-                <div>
-                    Sport
-                </div>
+            <div className='hidden md:flex grow gap-4 '>
+
                 <div>
                     Videos
                 </div>
@@ -26,8 +25,11 @@ const Header = () => {
                     Broken
                 </div>
             </div>
-            <div className='flex '>
+            <div className='hidden md:flex'>
                 search
+            </div>
+            <div className='flex md:hidden ml-auto'>
+                <SideBarButton />
             </div>
         </div>
     );
