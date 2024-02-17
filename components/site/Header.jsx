@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import React from 'react';
-import SideBarButton from './SideBarButton';
+import { IoMenu } from "react-icons/io5";
 
-const Header = () => {
+const Header = ({ open, setOpen }) => {
     return (
-        <div className='flex sticky top-0   z-20  min-h-[80px] lg:max-w-[1140px] h-fit p-2 w-screen items-center overflow-hidden px-5 gap-3'>
+        <div className='flex fixed top-0   z-20  min-h-[80px] lg:max-w-[1140px] h-fit p-2 w-screen items-center overflow-hidden px-5 gap-3'>
             <div className='relative w-[50px] h-[50px] rounded-md overflow-hidden'>
                 <Image
                     src="/logo.jpg"
@@ -28,8 +28,8 @@ const Header = () => {
             <div className='hidden md:flex'>
                 search
             </div>
-            <div className='flex md:hidden ml-auto'>
-                <SideBarButton />
+            <div className='flex md:hidden ml-auto' onClick={() => setOpen(true)}>
+                <IoMenu className='text-3xl' />
             </div>
         </div>
     );

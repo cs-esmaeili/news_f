@@ -10,17 +10,11 @@ import { BsShieldLockFill } from "react-icons/bs";
 import { FaUserPlus } from "react-icons/fa6";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { useSearchParams } from 'next/navigation';
 import SideBarShdow from "./SideBarShdow";
 
-const Sidebar = () => {
+const Sidebar = ({ open, setOpen }) => {
 
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-
-  const searchParams = useSearchParams();
-  const sideBar = searchParams.get('sideBar');
 
   const items = [
     { name: "Dashboard", url: "/dashboard", icon: <MdSpaceDashboard className="text-2xl" /> },
@@ -32,13 +26,9 @@ const Sidebar = () => {
     { name: "Users", url: "/dashboard/user", icon: <FaUserPlus className="text-2xl" /> },
   ];
 
-  useEffect(() => {
-    setOpen((sideBar === 'true'));
-  }, [searchParams]);
-
   return (
     <>
-      <SideBarShdow />
+      <SideBarShdow open={open} setOpen={setOpen} />
       <div
         className={
           open

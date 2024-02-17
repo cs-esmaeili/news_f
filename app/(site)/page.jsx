@@ -32,7 +32,6 @@ const page = () => {
                 </div>
                 <div className='absolute bottom-0 w-full h-1/4 bg-gradient-to-t from-primary_s to-transparent' />
             </div>
-
             <div className='lg:max-w-[1140px] max-w-full'>
 
                 <div className='flex gap-4 px-2 w-full min-w-full overflow-auto'>
