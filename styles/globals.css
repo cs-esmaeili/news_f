@@ -12,7 +12,7 @@
   --color-active_background: 255 247 234;
 
   --color-primary-s: 23 24 48 ;
-  --color-accent-s: 119 113 225;
+  --color-accent-s: 106 76 252;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -26,7 +26,7 @@
     --color-active_background: 46 49 57;
 
     --color-primary-s: 23 24 48 ;
-    --color-accent-s: 119 113 225;
+    --color-accent-s: 106 76 252;
 
   }
 }
