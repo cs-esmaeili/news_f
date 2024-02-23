@@ -91,34 +91,44 @@ const page = () => {
                     <div className='border-l-4 border-accent_s pr-1'></div>
                     <span className='text-xl'>Lastest News</span>
                 </div>
-                <div className='flex gap-3 justify-between'>
-                    <div className='relative min-w-[170px]  w-[350px] h-[320px]'>
+
+                <div className='flex flex-wrap justify-between gap-3'>
+                    <div className='grow  w-full sm:w-1/3  md:w-1/5 relative  h-[320px]'>
                         <Card roundMode />
                     </div>
-                    <div className='relative min-w-[170px]  w-[350px] h-[320px]'>
+                    <div className='grow  w-full sm:w-1/3  md:w-1/5 relative  h-[320px]'>
                         <Card roundMode />
                     </div>
-                    <div className='relative min-w-[170px]  w-[350px] h-[320px]'>
+                    <div className='grow  w-full sm:w-1/3 md:w-1/5 relative  h-[320px]'>
+                        <Card roundMode />
+                    </div>
+                    <div className='grow  w-full sm:w-1/3 md:w-1/5 relative  h-[320px]'>
                         <Card roundMode />
                     </div>
                 </div>
+
                 <div className='flex my-3'>
                     <div className='border-l-4 border-accent_s pr-1'></div>
                     <span className='text-xl'>Lastest News</span>
                 </div>
-                <div className='flex gap-3 justify-between'>
-                    <div className='relative min-w-[170px]  w-[350px] h-[320px]'>
+
+                <div className='flex flex-wrap justify-between gap-3'>
+                    <div className='grow  w-full sm:w-1/3  md:w-1/5 relative  h-[320px]'>
                         <Card roundMode />
                     </div>
-                    <div className='relative min-w-[170px]  w-[350px] h-[320px]'>
+                    <div className='grow  w-full sm:w-1/3  md:w-1/5 relative  h-[320px]'>
                         <Card roundMode />
                     </div>
-                    <div className='relative min-w-[170px]  w-[350px] h-[320px]'>
+                    <div className='grow  w-full sm:w-1/3 md:w-1/5 relative  h-[320px]'>
+                        <Card roundMode />
+                    </div>
+                    <div className='grow  w-full sm:w-1/3 md:w-1/5 relative  h-[320px]'>
                         <Card roundMode />
                     </div>
                 </div>
 
             </div>
+            
         </div>
     );
 };

@@ -4,6 +4,7 @@ import Header from '@/components/site/Header';
 import Sidebar from '@/components/site/Sidebar';
 import { useState } from 'react';
 import '@/styles/globals.css';
+import Footer from '@/components/site/Footer';
 
 
 export default function Layout({ children }) {
@@ -18,6 +19,7 @@ export default function Layout({ children }) {
           <Sidebar open={open} setOpen={setOpen} />
           <div className='absolute top-0 w-full h-[100px] bg-gradient-to-b from-primary_s to-transparent z-10'></div>
           {children}
+          <Footer />
         </div>
       </body>
     </html>
