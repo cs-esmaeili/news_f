@@ -17,7 +17,7 @@ const page = () => {
                         style={{ objectFit: "cover" }}
                     />
                 </div>
-                <div className='mt-[80px] mb-5 flex  justify-center'>
+                <div className='mt-[80px] mb-5 flex  justify-center mx-2'>
 
                     <div className='flex flex-wrap gap-2 justify-center grow lg:max-w-[1140px]'>
                         <div className='flex  items-center'>

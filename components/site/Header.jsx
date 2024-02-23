@@ -1,10 +1,10 @@
 import Image from 'next/image';
-import React from 'react';
 import { IoMenu } from "react-icons/io5";
 
 const Header = ({ open, setOpen }) => {
+
     return (
-        <div className='flex fixed top-0   z-20  min-h-[80px] lg:max-w-[1140px] h-fit p-2 w-screen items-center overflow-hidden px-5 gap-3'>
+        <div className="flex fixed top-0  z-30  min-h-[80px] lg:max-w-[1140px] h-fit p-2 w-screen items-center overflow-hidden px-5 gap-3">
             <div className='relative w-[50px] h-[50px] rounded-md overflow-hidden'>
                 <Image
                     src="/logo.jpg"
@@ -14,7 +14,6 @@ const Header = ({ open, setOpen }) => {
                 />
             </div>
             <div className='hidden md:flex grow gap-4 '>
-
                 <div>
                     Videos
                 </div>
@@ -24,6 +23,9 @@ const Header = ({ open, setOpen }) => {
                 <div>
                     Broken
                 </div>
+            </div>
+            <div className=' md:hidden'>
+                Won News
             </div>
             <div className='hidden md:flex'>
                 search
