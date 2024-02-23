@@ -33,31 +33,73 @@ const page = () => {
                 </div>
                 <div className='absolute bottom-0 w-full h-1/4 bg-gradient-to-t from-primary_s to-transparent' />
             </div>
-            <div className='flex flex-col lg:max-w-[1140px] max-w-full gap-3'>
+            <div className='flex flex-col lg:max-w-[1140px] max-w-full gap-3 px-2'>
 
                 <div className='flex gap-4  w-full min-w-full overflow-auto justify-between'>
 
                     <div className='relative min-w-[170px]  w-[170px] h-[290px] pl-0'>
-                        <ImageCard />
+                        <ImageCard roundMode />
                     </div>
 
                     <div className='relative min-w-[170px]  w-[170px] h-[290px]'>
-                        <ImageCard />
+                        <ImageCard roundMode />
                     </div>
                     <div className='relative min-w-[170px]  w-[170px] h-[290px]'>
-                        <ImageCard />
-                    </div>
-
-                    <div className='relative min-w-[170px]  w-[170px] h-[290px]'>
-                        <ImageCard />
+                        <ImageCard roundMode />
                     </div>
 
                     <div className='relative min-w-[170px]  w-[170px] h-[290px]'>
-                        <ImageCard />
+                        <ImageCard roundMode />
                     </div>
 
                     <div className='relative min-w-[170px]  w-[170px] h-[290px]'>
-                        <ImageCard />
+                        <ImageCard roundMode />
+                    </div>
+
+                    <div className='relative min-w-[170px]  w-[170px] h-[290px]'>
+                        <ImageCard roundMode />
+                    </div>
+                </div>
+
+                <div className='flex-col'>
+                    <div className='flex gap-3 mb-3 flex-wrap md:flex-nowrap'>
+                        <div className='relative  w-full md:w-1/2 h-[264px] pl-0'>
+                            <ImageCard image={"/img1.png"} />
+                        </div>
+                        <div className='relative   w-full  md:w-1/2  h-[264px] pl-0'>
+                            <ImageCard image={"/img2.png"} />
+                        </div>
+                    </div>
+                    <div className='flex flex-wrap justify-between gap-3'>
+                        <div className='grow  w-full sm:w-1/3  md:w-1/5 relative  h-[320px]'>
+                            <Card />
+                        </div>
+                        <div className='grow  w-full sm:w-1/3  md:w-1/5 relative  h-[320px]'>
+                            <Card />
+                        </div>
+                        <div className='grow  w-full sm:w-1/3 md:w-1/5 relative  h-[320px]'>
+                            <Card />
+                        </div>
+                        <div className='grow  w-full sm:w-1/3 md:w-1/5 relative  h-[320px]'>
+                            <Card />
+                        </div>
+                    </div>
+                </div>
+
+
+                <div className='flex my-3'>
+                    <div className='border-l-4 border-accent_s pr-1'></div>
+                    <span className='text-xl'>Lastest News</span>
+                </div>
+                <div className='flex gap-3 justify-between'>
+                    <div className='relative min-w-[170px]  w-[350px] h-[320px]'>
+                        <Card roundMode />
+                    </div>
+                    <div className='relative min-w-[170px]  w-[350px] h-[320px]'>
+                        <Card roundMode />
+                    </div>
+                    <div className='relative min-w-[170px]  w-[350px] h-[320px]'>
+                        <Card roundMode />
                     </div>
                 </div>
                 <div className='flex my-3'>
@@ -66,48 +108,13 @@ const page = () => {
                 </div>
                 <div className='flex gap-3 justify-between'>
                     <div className='relative min-w-[170px]  w-[350px] h-[320px]'>
-                        <Card />
+                        <Card roundMode />
                     </div>
                     <div className='relative min-w-[170px]  w-[350px] h-[320px]'>
-                        <Card />
+                        <Card roundMode />
                     </div>
                     <div className='relative min-w-[170px]  w-[350px] h-[320px]'>
-                        <Card />
-                    </div>
-                </div>
-                <div className='flex my-3'>
-                    <div className='border-l-4 border-accent_s pr-1'></div>
-                    <span className='text-xl'>Lastest News</span>
-                </div>
-                <div className='flex gap-3 justify-between'>
-                    <div className='relative min-w-[170px]  w-[350px] h-[320px]'>
-                        <Card />
-                    </div>
-                    <div className='relative min-w-[170px]  w-[350px] h-[320px]'>
-                        <Card />
-                    </div>
-                    <div className='relative min-w-[170px]  w-[350px] h-[320px]'>
-                        <Card />
-                    </div>
-                </div>
-
-                <div className='flex border border-accent_s p-3 gap-3'>
-                    <div className='relative w-2/4 h-full  rounded-2xl overflow-hidden'>
-                        <Image
-                            src="/cardh.png"
-                            alt="Picture of the author"
-                            fill
-                            style={{ objectFit: "cover" }}
-                        />
-                    </div>
-                    <div className='grow w-3/4'>
-                        <div className=''>
-                            Former NFL wide receiver Henry Ruggs III sentenced to 3-10 years in fatal DUI caseFormer NFL wide receiver Henry Ruggs III sentenced to 3-10 years in fatal DUI caseFormer NFL wide receiver Henry Ruggs III sentenced to 3-10 years in fatal DUI caseFormer NFL wide receiver Henry Ruggs III sentenced to 3-10 years in fatal DUI case
-                        </div>
-                        <div className='opacity-50'>
-                            Lorem ipsum dolor sit amet consectetur. Est ut vitae senectus eu amet blandit in nunc vel. Sodales venenatis ut quis felis. Sit viverra mi tortor interdum est facilisis dignissim. Semper nulla in elementum elit velit amet in. Blandit dolor facilisis lacus ac tincidunt viverra egestas eu netus. Viverra enim elementum volutpat malesuada egestas.
-                            Pulvinar sagittis montes tincidunt nunc id sed. Est eget augue amet in arcu at in ipsum interdum. Nisl venenatis ac sed arcu quis aliquet. Sit nibh feugiat sed consectetur imperdiet dolor tempor tempus ornare. Aliquam volutpat netus viverra enim.
-                        </div>
+                        <Card roundMode />
                     </div>
                 </div>
 

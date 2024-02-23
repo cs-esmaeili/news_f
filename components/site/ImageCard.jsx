@@ -1,17 +1,17 @@
 import Image from 'next/image';
 
-const ImageCard = () => {
+const ImageCard = ({ image = "/card.png", roundMode = false }) => {
     return (
         <div className='relative flex flex-col w-full h-full'>
-            <div className='relative w-full h-full  rounded-2xl overflow-hidden'>
+            <div className={`relative w-full h-full ${(roundMode) && "rounded-2xl overflow-hidden"}`}>
                 <Image
-                    src="/card.png"
+                    src={image}
                     alt="Picture of the author"
                     fill
                     style={{ objectFit: "cover" }}
                 />
             </div>
-            <div className='flex z-10 flex-col absolute bottom-0 m-10 text-center'>
+            <div className='flex z-10 flex-col absolute bottom-0 m-5 text-center'>
                 <span>
                     LifeStraws New
                     Go Series Water
