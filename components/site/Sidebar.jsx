@@ -32,11 +32,11 @@ const Sidebar = ({ open, setOpen }) => {
       <div
         className={
           open
-            ? "fixed bottom-0 right-0  top-0 z-30 h-full min-w-max bg-secondary p-7 duration-500 ease-in"
-            : "fixed  right-[-100%] h-full z-30 min-w-max bg-secondary p-7 duration-500 ease-in"
+            ? "fixed bottom-0 right-0  top-0 z-30 h-full min-w-max bg-primary_s p-7 duration-500 ease-in"
+            : "fixed  right-[-100%] h-full z-30 min-w-max bg-primary_s p-7 duration-500 ease-in"
         }
       >
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center mb-5 ">
           <Image
             className="rounded-md"
             src="/logo.jpg"
@@ -47,16 +47,6 @@ const Sidebar = ({ open, setOpen }) => {
           <span className="ml-3 font-bold"> WEB site Name </span>
         </div>
 
-        <div className="mb-5 mt-8 flex items-center rounded-md bg-secondary_dark p-3">
-          <Image
-            className="rounded-full"
-            src="/avatar.jpg"
-            alt="Site logo"
-            width={45}
-            height={45}
-          />
-          <span className="ml-3"> Javad Esmaeili </span>
-        </div>
         <div>
           {items.map((item, index) => {
             const { url, icon, name } = item;
