@@ -117,13 +117,31 @@ const LogIn = () => {
                     <Input color={"bg-primary"} placeholder={"Phone Number"} cssClass={"text-center"} maxLength={11}
                         onChange={(e) => setUserName(e.target.value)}
                         value={userName}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                if (step == 1) {
+                                    logInStepOne();
+                                } else {
+                                    logInStepTwo();
+                                }
+                            }
+                        }}
                     />
                 </div>
                 {step == 2 &&
                     <div className='w-full'>
-                        <SmsInput color={"bg-primary"} placeholder={"sms code"} cssClass={"text-center"} maxLength={6}
+                        <SmsInput color={"bg-primary"} placeholder={"sms code"} cssClass={"text-center"} autoFocus maxLength={6}
                             setValue={setCode}
                             value={code}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    if (step == 1) {
+                                        logInStepOne();
+                                    } else {
+                                        logInStepTwo();
+                                    }
+                                }
+                            }}
                         />
                     </div>
                 }
@@ -152,7 +170,8 @@ const LogIn = () => {
                             } else {
                                 logInStepTwo();
                             }
-                        }}>{step == 1 ? "Enter" : (timer > 0) ? "Enter" : "ReSend code"}</button>
+                        }}
+                        >{step == 1 ? "Enter" : (timer > 0) ? "Enter" : "ReSend code"}</button>
                     }
                 </div>
 
