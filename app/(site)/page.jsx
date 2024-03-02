@@ -1,10 +1,30 @@
 import ImageCard from '@/components/site/ImageCard';
-import BigImageCard from '@/components/site/BigImageCard';
 import Card from '@/components/site/Card';
 import Image from 'next/image';
+import Slider from '@/components/site/Slider';
+import { firstPage as RfirstPage } from '@/services/Site';
 
-const page = () => {
+const getData = async () => {
+    try {
+        const { data } = await RfirstPage();
+        return data;
+    } catch (error) {
+        if (error?.response?.data?.message) {
+            console.log(error.response.data.message);
+        } else {
+            console.log(error);
+        }
+    }
+}
 
+
+const page = async () => {
+
+    const data = await getData();
+
+    function getLocationData(locationNumber) {
+        return data.find(obj => obj.location === locationNumber).data;
+    }
     return (
         <div className='flex flex-col w-full max-w-full items-center gap-3'>
             <div className='relative w-full h-max  rounded-md overflow-hidden'>
@@ -16,7 +36,7 @@ const page = () => {
                         style={{ objectFit: "cover" }}
                     />
                 </div>
-                <div className='mt-[300px] mb-5 flex  justify-center mx-2'>
+                <div className='mt-[80px] mb-5 flex  justify-center mx-2'>
 
                     <div className='flex flex-wrap gap-2 justify-center grow lg:max-w-[1140px]'>
                         <div className='flex  items-center'>
@@ -26,7 +46,7 @@ const page = () => {
                             </div>
                         </div>
                         <div className='flex '>
-                            <BigImageCard />
+                            <Slider data={getLocationData(2)} />
                         </div>
                     </div>
                 </div>
@@ -35,29 +55,15 @@ const page = () => {
             <div className='flex flex-col lg:max-w-[1140px] max-w-full gap-3 px-2'>
 
                 <div className='flex gap-4  w-full min-w-full overflow-auto justify-between'>
-
-                    <div className='relative min-w-[170px]  w-[170px] h-[290px] pl-0'>
-                        <ImageCard roundMode />
-                    </div>
-
-                    <div className='relative min-w-[170px]  w-[170px] h-[290px]'>
-                        <ImageCard roundMode />
-                    </div>
-                    <div className='relative min-w-[170px]  w-[170px] h-[290px]'>
-                        <ImageCard roundMode />
-                    </div>
-
-                    <div className='relative min-w-[170px]  w-[170px] h-[290px]'>
-                        <ImageCard roundMode />
-                    </div>
-
-                    <div className='relative min-w-[170px]  w-[170px] h-[290px]'>
-                        <ImageCard roundMode />
-                    </div>
-
-                    <div className='relative min-w-[170px]  w-[170px] h-[290px]'>
-                        <ImageCard roundMode />
-                    </div>
+                    {getLocationData(3).map((value, index) => {
+                        if (index <= 5) {
+                            return (
+                                <div className='relative min-w-[170px]  w-[170px] h-[290px] pl-0'>
+                                    <ImageCard text={value.title} image={value.body[0][0].content.url} url={`/post/${value.title}`} roundMode />
+                                </div>
+                            )
+                        }
+                    })}
                 </div>
 
                 <div className='flex-col'>
@@ -127,7 +133,7 @@ const page = () => {
                 </div>
 
             </div>
-            
+
         </div>
     );
 };
