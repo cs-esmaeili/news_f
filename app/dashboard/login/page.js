@@ -95,11 +95,18 @@ const LogIn = () => {
     }, [userName, code]);
 
     useEffect(() => {
-        setStep(1);
-        setCode("");
-        setTimer(0);
-    }, [userName]);
+        if (code.length == 7) {
+            if (step == 1) {
+                logInStepOne();
+            } else {
+                logInStepTwo();
+            }
+        }
+    }, [code]);
 
+    useEffect(() => {
+        setErrorMessage(null);
+    }, [userName, code]);
 
     return (
         <div className='bg-primary flex h-screen w-full max-w-full overflow-hidden justify-center items-center'>
