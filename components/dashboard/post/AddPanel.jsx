@@ -6,10 +6,7 @@ const AddPanel = ({ content, setContent }) => {
     return (
         <div className='border-2 border-dashed border-accent w-full h-fit flex items-center justify-center p-5'>
             <PiRectangleBold className='text-accent text-4xl mr-2' onClick={() => {
-                setContent(prevItems => [...prevItems, [{ type: "Text", content: "" }]]);
-            }} />
-            <VscLayoutSidebarLeft className='text-accent text-4xl' onClick={() => {
-                setContent(prevItems => [...prevItems, [{ type: "Text", content: "" }, { type: "Text", content: "" }]]);
+                setContent(prevItems => [...prevItems, { type: "Text", content: "" }]);
             }} />
         </div>
     );
