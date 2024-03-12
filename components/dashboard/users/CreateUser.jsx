@@ -27,7 +27,7 @@ const CreateUser = ({ editData, setEditData, setRefreshList }) => {
     const [createStatus, setCreateStatus] = useState(false);
 
 
-    const { isModalOpen, openModal, closeModal, setBody } = useModalContext();
+    const { openModal, closeModal } = useModalContext();
 
     const resetForm = () => {
         setRole(null);
@@ -76,12 +76,11 @@ const CreateUser = ({ editData, setEditData, setRefreshList }) => {
     }
 
     const pickImage = () => {
-        setBody(<Filemanager fileType={"image"} fileSelectListener={(selectedFile) => {
+        openModal(<Filemanager fileType={"image"} fileSelectListener={(selectedFile) => {
             const { baseUrl, file } = selectedFile;
             setImage({ url: baseUrl + file.name, blurHash: file.blurHash });
             closeModal();
         }} />);
-        openModal();
     }
 
     useEffect(() => {
@@ -118,12 +117,11 @@ const CreateUser = ({ editData, setEditData, setRefreshList }) => {
                 <div className='flex justify-between gap-2'>
                     <InputDatePicker icon={<BsImageFill className='' />} value={birthday} reset={birthday} onChange={(time) => setBirthday(time)} />
                     <button className='bg-accent grow text-nowrap p-1 pl-3 pr-3 rounded-md' onClick={() => {
-                        setBody(<Roles selectMode listener={(role) => {
+                        openModal(<Roles selectMode listener={(role) => {
                             const { name, _id } = role;
                             setRole({ name, _id });
                             closeModal();
                         }} />);
-                        openModal();
                     }}>{role ? role.name : "Select Role"}</button>
                 </div>
                 <div className='flex grow gap-2'>

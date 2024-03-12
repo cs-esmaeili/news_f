@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 
 const PostDetails = ({ content, setContent, editMode, editData, updateListener }) => {
 
-    const { isModalOpen, openModal, closeModal, setBody } = useModalContext();
+    const { openModal, closeModal } = useModalContext();
 
     const [tags, setTags] = useState([]);
     const [category, setCategory] = useState(null);
@@ -66,7 +66,7 @@ const PostDetails = ({ content, setContent, editMode, editData, updateListener }
             setTitle(title);
             setDisc(disc);
         }
-    }, [editMode , editData]);
+    }, [editMode, editData]);
 
     return (
         <div className='sticky z-10 top-0 flex flex-col bg-secondary  p-2 mb-2 rounded-md' >
@@ -117,11 +117,10 @@ const PostDetails = ({ content, setContent, editMode, editData, updateListener }
                 </button>
                 <button className='w-full p-1 bg-green-500 rounded-md '
                     onClick={() => {
-                        setBody(<Category pickMode selectListener={(row) => {
+                        openModal(<Category pickMode selectListener={(row) => {
                             setCategory(row);
                             closeModal();
                         }} />);
-                        openModal();
                     }}>
                     {(category == null) ? "Select Category" : category.name}
                 </button>

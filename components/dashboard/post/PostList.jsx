@@ -10,7 +10,7 @@ import Image from 'next/image';
 
 const PostList = ({ content, setContent }) => {
 
-    const { isModalOpen, openModal, closeModal, setBody } = useModalContext();
+    const { openModal, closeModal } = useModalContext();
 
     const handleItemClick = (newType, newContent, index) => {
         setContent(prevContent => {
@@ -32,13 +32,11 @@ const PostList = ({ content, setContent }) => {
             );
         } else if (row.type == "Image") {
             const selectImage = () => {
-                setBody(<Filemanager fileType={"image"} fileSelectListener={(selectedFile) => {
+                openModal(<Filemanager fileType={"image"} fileSelectListener={(selectedFile) => {
                     const { baseUrl, file } = selectedFile;
-                    console.log(selectedFile);
                     handleItemClick("Image", { url: (baseUrl + file.name), blurHash: file.blurHash, size: file.size }, index);
                     closeModal();
                 }} />);
-                openModal();
             }
             if (row.content == "") {
                 return (
@@ -67,12 +65,11 @@ const PostList = ({ content, setContent }) => {
             }
         } else if (row.type == "Video") {
             const selectVideo = () => {
-                setBody(<Filemanager fileType={"video"} fileSelectListener={(selectedFile) => {
+                openModal(<Filemanager fileType={"video"} fileSelectListener={(selectedFile) => {
                     const { baseUrl, file } = selectedFile;
                     handleItemClick("Video", { url: (baseUrl + file.name) }, index);
                     closeModal();
                 }} />);
-                openModal();
             }
             if (row.content == "") {
                 return (

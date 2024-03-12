@@ -1,5 +1,6 @@
 import localFont from 'next/font/local'
 import '@/styles/globals.css';
+import 'react-image-crop/dist/ReactCrop.css';
 
 
 const custom = localFont({

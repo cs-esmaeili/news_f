@@ -6,7 +6,6 @@ import CreatePost from '@/app/dashboard/(main)/post/createPost/page';
 import Pagination from '@/components/dashboard/Pagination';
 import { postList as RpostList } from '@/services/Post';
 import { BiSolidEdit } from 'react-icons/bi';
-import { useModalContext } from '@/components/dashboard/Modal';
 import { RiCloseFill } from 'react-icons/ri';
 
 const postList = () => {
@@ -18,7 +17,6 @@ const postList = () => {
 
     const [editData, setEditData] = useState(null);
 
-    const { isModalOpen, openModal, closeModal, setBody } = useModalContext();
 
 
     const postList = async () => {

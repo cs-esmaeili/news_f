@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 export default function CreateCategory({ categoryList, editData, setEditData }) {
 
-    const { isModalOpen, openModal, closeModal, setBody } = useModalContext();
+    const { openModal, closeModal } = useModalContext();
 
     const [editMode, setEditMode] = useState(false);
     const [image, setImage] = useState(null);
@@ -95,13 +95,12 @@ export default function CreateCategory({ categoryList, editData, setEditData }) 
                             }
                             <button className={`bg-blue-500 text-white rounded-md p-1 w-full ${editMode && "ml-2"}`}
                                 onClick={(e) => {
-                                    setBody(<Filemanager fileType={"image"} fileSelectListener={(selectedFile) => {
+                                    openModal(<Filemanager fileType={"image"} fileSelectListener={(selectedFile) => {
                                         const { baseUrl, file } = selectedFile;
                                         console.log(selectedFile);
                                         setImage({ url: baseUrl + file.name, blurHash: file.blurHash });
                                         closeModal();
                                     }} />);
-                                    openModal();
                                 }}>
                                 Select
                             </button>

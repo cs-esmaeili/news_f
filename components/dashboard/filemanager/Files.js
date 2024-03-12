@@ -9,7 +9,7 @@ import { folderFileList as RfolderFileList } from '@/services/Filemanager';
 
 export default function Files({ path, selectedFile, setSelectedFile, setPath, refreshList, baseUrl, setBaseUrl, fileType }) {
 
-    const { isModalOpen, openModal, closeModal, setBody } = useModalContext();
+    const { openModal, closeModal } = useModalContext();
     const [files, setFiles] = useState(null);
     const [status, setStatus] = useState(false);
 
@@ -89,13 +89,11 @@ export default function Files({ path, selectedFile, setSelectedFile, setPath, re
                 }}
                 onDoubleClick={() => {
                     if (type == 'image') {
-                        setBody(<ImageModal baseUrl={baseUrl} image={name} blurHash={file.blurHash} size={file.size} />);
-                        openModal();
+                        openModal(<ImageModal baseUrl={baseUrl} image={name} blurHash={file.blurHash} size={file.size} />);
                     } else if (type == 'folder') {
                         setPath([...path, name]);
                     } else if (type == 'video') {
-                        setBody(<VideoModal baseUrl={baseUrl} video={name} />);
-                        openModal();
+                        openModal(<VideoModal baseUrl={baseUrl} video={name} />);
                     }
                 }}
             >

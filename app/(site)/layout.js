@@ -2,6 +2,7 @@
 
 import Header from '@/components/site/Header';
 import Sidebar from '@/components/site/Sidebar';
+import 'react-image-crop/dist/ReactCrop.css'
 import '@/styles/globals.css';
 import Footer from '@/components/site/Footer';
 import { useState, useEffect } from 'react';

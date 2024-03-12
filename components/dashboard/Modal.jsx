@@ -5,18 +5,27 @@ const ModalContext = createContext();
 export const useModalContext = () => useContext(ModalContext);
 
 export const ModalProvider = ({ children }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [body, setBody] = useState(null);
+  const [modals, setModals] = useState([]);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const openModal = (body) => {
+    setModals((prevModals) => [...prevModals, { body }]);
+  };
+
+  const closeModal = () => {
+    setModals((prevModals) => prevModals.slice(0, -1));
+  };
 
   return (
     <ModalContext.Provider
-      value={{ isModalOpen, openModal, closeModal, setBody }}
+      value={{
+        modals,
+        openModal,
+        closeModal,
+      }}
     >
-      {isModalOpen && (
+      {modals.map((modal, index) => (
         <div
+          key={index}
           className="fixed  overflow-hidden pt-20 pb-20 max-h-full inset-0 z-40 flex cursor-pointer items-center justify-center bg-black bg-opacity-50"
           onClick={(e) => {
             e.stopPropagation();
@@ -25,11 +34,11 @@ export const ModalProvider = ({ children }) => {
         >
           <div className="w-max rounded-md bg-primary overflow-auto max-h-full">
             <div className="p-2" onClick={(e) => e.stopPropagation()}>
-              {body}
+              {modal.body}
             </div>
           </div>
         </div>
-      )}
+      ))}
       {children}
     </ModalContext.Provider>
   );

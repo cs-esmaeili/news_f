@@ -21,7 +21,7 @@ const getData = async () => {
 const page = async () => {
 
     const data = await getData();
-
+    // console.log(data);
     function getLocationData(locationNumber) {
         return data.find(obj => obj.location === locationNumber).data;
     }
@@ -57,9 +57,10 @@ const page = async () => {
                 <div className='flex gap-4  w-full min-w-full overflow-auto justify-between'>
                     {getLocationData(3).map((value, index) => {
                         if (index <= 5) {
+                            console.log(value);
                             return (
                                 <div className='relative min-w-[170px]  w-[170px] h-[290px] pl-0'>
-                                    <ImageCard text={value.title} image={value.body[0][0].content.url} url={`/post/${value.title}`} roundMode />
+                                    <ImageCard text={value.title} image={value.body.content.url} url={`/post/${value.title}`} roundMode />
                                 </div>
                             )
                         }
