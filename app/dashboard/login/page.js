@@ -16,7 +16,7 @@ import { setPermissions } from '@/state/permissions';
 const LogIn = () => {
 
     const dispatch = useDispatch();
-    const [userName, setUserName] = useState("");
+    const [userName, setUserName] = useState("09137378601");
     const [code, setCode] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
     const [step, setStep] = useState(1);

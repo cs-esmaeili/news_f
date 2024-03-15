@@ -1,10 +1,14 @@
 import { createPost as RcreatePost, updatePost as RupdatePost } from '@/services/Post';
+import { LuRectangleVertical } from "react-icons/lu";
+import { PiRectangleBold } from "react-icons/pi";
 import { useModalContext } from '@/components/dashboard/Modal';
 import Category from '@/app/dashboard/(main)/category/page';
 import { useState, useEffect } from 'react';
 import Input from '@/components/dashboard/Input';
 import { RiCloseFill } from 'react-icons/ri';
 import toast from 'react-hot-toast';
+import Image from 'next/image';
+import Filemanager from '@/app/dashboard/(main)/filemanager/page';
 
 const PostDetails = ({ content, setContent, editMode, editData, updateListener }) => {
 
@@ -14,6 +18,8 @@ const PostDetails = ({ content, setContent, editMode, editData, updateListener }
     const [category, setCategory] = useState(null);
     const [title, setTitle] = useState("");
     const [disc, setDisc] = useState("");
+    const [imageH, setImageH] = useState(null);
+    const [imageV, setImageV] = useState(null);
 
     const [readyToCreate, setReadyToCreate] = useState(false);
 
@@ -106,6 +112,67 @@ const PostDetails = ({ content, setContent, editMode, editData, updateListener }
                     })}
                 </div>
             }
+            <div className='flex mt-3 gap-2'>
+                <div className='flex flex-col grow items-center border-2 border-dashed border-accent w-1/2'>
+                    {!imageH ?
+                        <div className='flex flex-col grow items-center w-full p-3' onClick={() => {
+                            openModal(<Filemanager fileType={"image"} fileSelectListener={(selectedFile) => {
+                                const { baseUrl, file } = selectedFile;
+                                setImageH({ url: (baseUrl + file.name), blurHash: file.blurHash, size: file.size });
+                                closeModal();
+                            }} />);
+                        }}>
+                            <PiRectangleBold className='text-accent text-4xl mr-2' />
+                        </div>
+                        :
+                        <Image
+                            src={imageH.url}
+                            alt="Picture of the author"
+                            width={imageH.size.width}
+                            height={imageH.size.height}
+                            placeholder="blur"
+                            blurDataURL={imageH.blurHash}
+                            onClick={(e) => {
+                                openModal(<Filemanager fileType={"image"} fileSelectListener={(selectedFile) => {
+                                    const { baseUrl, file } = selectedFile;
+                                    setImageH({ url: (baseUrl + file.name), blurHash: file.blurHash, size: file.size });
+                                    closeModal();
+                                }} />);
+                            }}
+                        />
+                    }
+                </div>
+                <div className='flex flex-col grow items-center border-2 border-dashed border-accent w-1/2'>
+                    {!imageV ?
+                        <div className='flex flex-col grow items-center w-full p-3' onClick={() => {
+                            openModal(<Filemanager fileType={"image"} fileSelectListener={(selectedFile) => {
+                                const { baseUrl, file } = selectedFile;
+                                setImageV({ url: (baseUrl + file.name), blurHash: file.blurHash, size: file.size });
+                                closeModal();
+                            }} />);
+                        }}>
+                            <LuRectangleVertical className='text-accent text-4xl mr-2' />
+                        </div>
+                        :
+                        <Image
+                            src={imageV.url}
+                            alt="Picture of the author"
+                            width={imageV.size.width}
+                            height={imageV.size.height}
+                            placeholder="blur"
+                            blurDataURL={imageV.blurHash}
+                            onClick={(e) => {
+                                openModal(<Filemanager fileType={"image"} fileSelectListener={(selectedFile) => {
+                                    const { baseUrl, file } = selectedFile;
+                                    setImageV({ url: (baseUrl + file.name), blurHash: file.blurHash, size: file.size });
+                                    closeModal();
+                                }} />);
+                            }}
+                        />
+                    }
+                </div>
+
+            </div>
             <div className='flex mt-3 gap-2'>
                 <button className={`w-full p-1 bg-accent rounded-md ${(!readyToCreate) && "opacity-50"}`}
                     onClick={() => {
