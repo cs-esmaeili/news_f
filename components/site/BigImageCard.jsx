@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from "next/link";
 
-const ImageCard = ({ image , text , url = "" }) => {
+const ImageCard = ({ image, blurHash, text, url = "" }) => {
     return (
         <Link href={url}>
             <div className='relative flex flex-col w-[287px] h-[367px] items-center'>
@@ -9,7 +9,9 @@ const ImageCard = ({ image , text , url = "" }) => {
                     <Image
                         src={image}
                         alt="Picture of the author"
+                        placeholder="blur"
                         fill
+                        blurDataURL={blurHash}
                         style={{ objectFit: "cover" }}
                     />
                 </div>

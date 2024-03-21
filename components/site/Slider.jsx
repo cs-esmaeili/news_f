@@ -24,7 +24,7 @@ const Slider = ({ data, time = 5 }) => {
         sliderTimer();
     }, []);
 
-    return (<BigImageCard text={data[curentPostIndex].title} image={data[curentPostIndex].body[0][0].content.url} />);
+    return (<BigImageCard text={data[curentPostIndex].title} image={data[curentPostIndex].imageV.url} blurHash={data[curentPostIndex].imageV.blurHash} />);
 };
 
 export default Slider; 

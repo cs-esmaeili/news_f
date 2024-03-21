@@ -20,7 +20,6 @@ export default function Layout({ children }) {
     try {
       const { data } = await Rcategorys();
       setCategorys(data);
-      console.log(data);
     } catch (error) {
       if (error?.response?.data?.message) {
         console.log(error.response.data.message);

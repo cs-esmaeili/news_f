@@ -27,9 +27,9 @@ const PostDetails = ({ content, setContent, editMode, editData, updateListener }
         try {
             let response = null
             if (editMode) {
-                response = await RupdatePost({ post_id: editData._id, title, disc, metaTags: tags, category_id: category._id, body: content });
+                response = await RupdatePost({ post_id: editData._id, imageH, imageV, title, disc, metaTags: tags, category_id: category._id, body: content });
             } else {
-                response = await RcreatePost({ title, disc, metaTags: tags, category_id: category._id, body: content });
+                response = await RcreatePost({ title, disc, imageH, imageV, metaTags: tags, category_id: category._id, body: content });
             }
             let { data } = response;
             const { message } = data;
@@ -49,6 +49,8 @@ const PostDetails = ({ content, setContent, editMode, editData, updateListener }
     }
 
     const resetForm = () => {
+        setImageH(null);
+        setImageV(null);
         setContent([]);
         setTags([]);
         setCategory(null);
@@ -66,16 +68,19 @@ const PostDetails = ({ content, setContent, editMode, editData, updateListener }
 
     useEffect(() => {
         if (editMode) {
-            const { metaTags, category_id, title, disc } = editData;
+            const { metaTags, category_id, title, disc, imageH, imageV } = editData;
             setTags(metaTags);
             setCategory(category_id);
             setTitle(title);
             setDisc(disc);
+
+            setImageV(imageV);
+            setImageH(imageH);
         }
     }, [editMode, editData]);
 
     return (
-        <div className='sticky z-10 top-0 flex flex-col bg-secondary  p-2 mb-2 rounded-md' >
+        <div className='flex flex-col bg-secondary  p-2 mb-2 rounded-md' >
             <div className='flex  gap-2 mb-2  justify-between flex-wrap  max-w-full'>
                 <div className='grow'>
                     <Input placeholder={"Title"} color={"bg-primary"} onChange={(e) => setTitle(e.target.value)} value={title} />
@@ -112,8 +117,8 @@ const PostDetails = ({ content, setContent, editMode, editData, updateListener }
                     })}
                 </div>
             }
-            <div className='flex mt-3 gap-2'>
-                <div className='flex flex-col grow items-center border-2 border-dashed border-accent w-1/2'>
+            <div className='flex mt-3 gap-2 items-center'>
+                <div className='flex flex-col grow items-center border-2 border-dashed border-accent w-1/2 h-full justify-center'>
                     {!imageH ?
                         <div className='flex flex-col grow items-center w-full p-3' onClick={() => {
                             openModal(<Filemanager fileType={"image"} fileSelectListener={(selectedFile) => {
@@ -128,8 +133,8 @@ const PostDetails = ({ content, setContent, editMode, editData, updateListener }
                         <Image
                             src={imageH.url}
                             alt="Picture of the author"
-                            width={imageH.size.width}
-                            height={imageH.size.height}
+                            width={250}
+                            height={200}
                             placeholder="blur"
                             blurDataURL={imageH.blurHash}
                             onClick={(e) => {
@@ -157,8 +162,8 @@ const PostDetails = ({ content, setContent, editMode, editData, updateListener }
                         <Image
                             src={imageV.url}
                             alt="Picture of the author"
-                            width={imageV.size.width}
-                            height={imageV.size.height}
+                            width={200}
+                            height={250}
                             placeholder="blur"
                             blurDataURL={imageV.blurHash}
                             onClick={(e) => {

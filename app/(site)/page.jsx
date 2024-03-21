@@ -21,10 +21,10 @@ const getData = async () => {
 const page = async () => {
 
     const data = await getData();
-    // console.log(data);
     function getLocationData(locationNumber) {
         return data.find(obj => obj.location === locationNumber).data;
     }
+
     return (
         <div className='flex flex-col w-full max-w-full items-center gap-3'>
             <div className='relative w-full h-max  rounded-md overflow-hidden'>
@@ -55,12 +55,13 @@ const page = async () => {
             <div className='flex flex-col lg:max-w-[1140px] max-w-full gap-3 px-2'>
 
                 <div className='flex gap-4  w-full min-w-full overflow-auto justify-between'>
+                    {console.log(getLocationData(3))}
                     {getLocationData(3).map((value, index) => {
                         if (index <= 5) {
                             console.log(value);
                             return (
                                 <div className='relative min-w-[170px]  w-[170px] h-[290px] pl-0'>
-                                    <ImageCard text={value.title} image={value.body.content.url} url={`/post/${value.title}`} roundMode />
+                                    <ImageCard text={value.title} image={value.imageH.url} blurHash={value.imageH.blurHash} url={`/post/${value.title}`} roundMode />
                                 </div>
                             )
                         }
@@ -70,10 +71,10 @@ const page = async () => {
                 <div className='flex-col'>
                     <div className='flex gap-3 mb-3 flex-wrap md:flex-nowrap'>
                         <div className='relative  w-full md:w-1/2 h-[264px] pl-0'>
-                            <ImageCard image={"/img1.png"} />
+                            {/* <ImageCard image={"/img1.png"} /> */}
                         </div>
                         <div className='relative   w-full  md:w-1/2  h-[264px] pl-0'>
-                            <ImageCard image={"/img2.png"} />
+                            {/* <ImageCard image={"/img2.png"} /> */}
                         </div>
                     </div>
                     <div className='flex flex-wrap justify-between gap-3'>
