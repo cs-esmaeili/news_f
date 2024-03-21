@@ -1,8 +1,9 @@
 import ImageCard from '@/components/site/ImageCard';
-import Card from '@/components/site/Card';
 import Image from 'next/image';
 import Slider from '@/components/site/Slider';
 import { firstPage as RfirstPage } from '@/services/Site';
+import Location4 from '@/components/site/sections/Location4';
+import Location5 from '@/components/site/sections/Location5';
 
 const getData = async () => {
     try {
@@ -55,87 +56,21 @@ const page = async () => {
             <div className='flex flex-col lg:max-w-[1140px] max-w-full gap-3 px-2'>
 
                 <div className='flex gap-4  w-full min-w-full overflow-auto justify-between'>
-                    {console.log(getLocationData(3))}
                     {getLocationData(3).map((value, index) => {
                         if (index <= 5) {
-                            console.log(value);
                             return (
                                 <div className='relative min-w-[170px]  w-[170px] h-[290px] pl-0'>
-                                    <ImageCard text={value.title} image={value.imageH.url} blurHash={value.imageH.blurHash} url={`/post/${value.title}`} roundMode />
+                                    <ImageCard text={value.title} image={value.imageV.url} blurHash={value.imageV.blurHash} url={`/post/${value.title}`} roundMode />
                                 </div>
                             )
                         }
                     })}
                 </div>
-
-                <div className='flex-col'>
-                    <div className='flex gap-3 mb-3 flex-wrap md:flex-nowrap'>
-                        <div className='relative  w-full md:w-1/2 h-[264px] pl-0'>
-                            {/* <ImageCard image={"/img1.png"} /> */}
-                        </div>
-                        <div className='relative   w-full  md:w-1/2  h-[264px] pl-0'>
-                            {/* <ImageCard image={"/img2.png"} /> */}
-                        </div>
-                    </div>
-                    <div className='flex flex-wrap justify-between gap-3'>
-                        <div className='grow  w-full sm:w-1/3  md:w-1/5 relative  h-[320px]'>
-                            <Card />
-                        </div>
-                        <div className='grow  w-full sm:w-1/3  md:w-1/5 relative  h-[320px]'>
-                            <Card />
-                        </div>
-                        <div className='grow  w-full sm:w-1/3 md:w-1/5 relative  h-[320px]'>
-                            <Card />
-                        </div>
-                        <div className='grow  w-full sm:w-1/3 md:w-1/5 relative  h-[320px]'>
-                            <Card />
-                        </div>
-                    </div>
-                </div>
-
-
-                <div className='flex my-3'>
-                    <div className='border-l-4 border-accent_s pr-1'></div>
-                    <span className='text-xl'>Lastest News</span>
-                </div>
-
-                <div className='flex flex-wrap justify-between gap-3'>
-                    <div className='grow  w-full sm:w-1/3  md:w-1/5 relative  h-[320px]'>
-                        <Card roundMode />
-                    </div>
-                    <div className='grow  w-full sm:w-1/3  md:w-1/5 relative  h-[320px]'>
-                        <Card roundMode />
-                    </div>
-                    <div className='grow  w-full sm:w-1/3 md:w-1/5 relative  h-[320px]'>
-                        <Card roundMode />
-                    </div>
-                    <div className='grow  w-full sm:w-1/3 md:w-1/5 relative  h-[320px]'>
-                        <Card roundMode />
-                    </div>
-                </div>
-
-                <div className='flex my-3'>
-                    <div className='border-l-4 border-accent_s pr-1'></div>
-                    <span className='text-xl'>Lastest News</span>
-                </div>
-
-                <div className='flex flex-wrap justify-between gap-3'>
-                    <div className='grow  w-full sm:w-1/3  md:w-1/5 relative  h-[320px]'>
-                        <Card roundMode />
-                    </div>
-                    <div className='grow  w-full sm:w-1/3  md:w-1/5 relative  h-[320px]'>
-                        <Card roundMode />
-                    </div>
-                    <div className='grow  w-full sm:w-1/3 md:w-1/5 relative  h-[320px]'>
-                        <Card roundMode />
-                    </div>
-                    <div className='grow  w-full sm:w-1/3 md:w-1/5 relative  h-[320px]'>
-                        <Card roundMode />
-                    </div>
-                </div>
+                <Location4 data={getLocationData(4)} />
+                <Location5 data={getLocationData(5)} sectionTitle={"section 5"} />
+                <Location5 data={getLocationData(6)} sectionTitle={"section 6"} />
 
             </div>
-
         </div>
     );
 };

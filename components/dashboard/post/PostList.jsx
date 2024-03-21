@@ -52,8 +52,8 @@ const PostList = ({ content, setContent }) => {
                         <Image
                             src={row.content.url}
                             alt="Picture of the author"
-                            width={row.content.size.width}
-                            height={row.content.size.height}
+                            width={200}
+                            height={200}
                             placeholder="blur"
                             blurDataURL={row.content.blurHash}
                             onClick={(e) => {
