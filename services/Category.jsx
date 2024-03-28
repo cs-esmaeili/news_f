@@ -15,3 +15,7 @@ export const deleteCategory = (data) => {
 export const updateCategory = (data) => {
     return http.post(`${prefixUrl}/updateCategory`, JSON.stringify(data));
 };
+
+export const getCategoryData = (data) => {
+    return http.post(`${prefixUrl}/getCategoryData`, JSON.stringify(data));
+};
