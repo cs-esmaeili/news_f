@@ -16,8 +16,13 @@ const Header = ({ open, setOpen, categorys }) => {
                 />
             </div>
             <div className='hidden md:flex grow gap-4 '>
+                <Link href={'/'}>
+                    <div>
+                        Home
+                    </div>
+                </Link>
                 {categorys && categorys.map((item, index) => {
-                    const { name, url = `/category/${name}` } = item;
+                    const { name, url = `/category/${name}/1` } = item;
                     if (index <= 5) {
                         return (
                             <Link href={url} key={index}>

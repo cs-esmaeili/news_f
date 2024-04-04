@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { MdOutlineDateRange } from 'react-icons/md';
+import Date from './Date';
 
 const Card = ({ image, blurHash, title, disc, category, date, url = '', roundMode = false }) => {
     return (
         <Link href={url}>
-            <div className="relative flex flex-col w-full h-full gap-2">
+            <div className="relative flex flex-col w-full h-full gap-2 hover:border-2 hover:border-accent_s">
                 <div className={`relative w-full h-full ${roundMode ? 'rounded-2xl overflow-hidden' : ''}`}>
                     <Image
                         src={image}
@@ -17,11 +18,11 @@ const Card = ({ image, blurHash, title, disc, category, date, url = '', roundMod
                     />
                 </div>
                 <div className="justify-center">
-                    <div className="flex flex-wrap-reverse justify-between max-w-full mb-2">
+                    <div className="flex flex-nowrap justify-between max-w-full mb-2">
                         <div className="bg-gray-700 rounded-xl px-2 py-1 bg-opacity-50">{category}</div>
                         <div className="flex items-center opacity-75">
-                            <div>{date}</div>
-                            <MdOutlineDateRange className="text-2xl" />
+                            <Date date={date} />
+                            <MdOutlineDateRange className="text-2xl pl-1" />
                         </div>
                     </div>
                     <div className='ml-1'>
