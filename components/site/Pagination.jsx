@@ -20,7 +20,7 @@ export default function Pagination({
         renderedItems.push(
           <div
             key={i}
-            className={`cursor-pointer rounded-md bg-secondary p-3 hover:bg-opacity-50 ${i == activePage && "text-accent"
+            className={`cursor-pointer rounded-md bg-accent_s text-primary_s p-3 hover:bg-opacity-50 ${i == activePage && "!text-white"
               }`}
             onClick={() => replace(pathname + '/' + i)}
           >

@@ -24,7 +24,7 @@ const Category = async ({ params }) => {
 
     let pageParams = params.data;
 
-    if (pageParams[1] == null) {
+    if (pageParams[1] == null || pageParams[1] < 1) {
         notFound();
     }
 
@@ -32,6 +32,11 @@ const Category = async ({ params }) => {
     let pageNumber = pageParams[1];
 
     const { category, postsCount, posts } = await categorysData(pageParams);
+
+    const totalPages = Math.ceil(postsCount / perPage);
+    if (pageParams[1] > totalPages) {
+        notFound();
+    }
 
     return (
         <div className='flex flex-col w-full max-w-full items-center gap-3'>
