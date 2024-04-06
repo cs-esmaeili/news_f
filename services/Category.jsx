@@ -19,3 +19,7 @@ export const updateCategory = (data) => {
 export const getCategoryData = (data) => {
     return http.post(`${prefixUrl}/getCategoryData`, JSON.stringify(data));
 };
+
+export const categorys = () => {
+    return http.post(`${prefixUrl}/categorys`);
+};

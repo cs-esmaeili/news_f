@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import Link from "next/link";
 
-const ImageCard = ({ image, blurHash, text, url = "", roundMode = false }) => {
+const ImageCard = ({ image, blurHash, title, text, roundMode = false }) => {
     return (
-        <Link href={url}>
+        <Link href={`/post/${title}`}>
             <div className='relative flex flex-col w-full h-full items-center'>
                 <div className={`relative w-full h-full ${(roundMode) && "rounded-2xl overflow-hidden"}`}>
                     <Image

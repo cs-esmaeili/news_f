@@ -18,3 +18,7 @@ export const deletePost = (data) => {
 export const updatePost = (data) => {
     return http.post(`${prefixUrl}/updatePost`, JSON.stringify(data));
 };
+
+export const getPost = (data) => {
+    return http.post(`${prefixUrl}/getPost`, JSON.stringify(data));
+};

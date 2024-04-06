@@ -22,6 +22,7 @@ const getData = async () => {
 const page = async () => {
 
     const data = await getData();
+    
     function getLocationData(locationNumber) {
         return data.find(obj => obj.location === locationNumber).data;
     }

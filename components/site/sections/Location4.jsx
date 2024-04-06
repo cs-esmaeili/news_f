@@ -20,7 +20,7 @@ const Location4 = ({ data }) => {
             <div className="flex gap-3 mb-3 flex-wrap md:flex-nowrap">
                 {data.slice(0, 2).map((item, index) => (
                     <div className="relative w-full md:w-1/2 h-[264px] pl-0" key={index}>
-                        <ImageCard image={item.imageH.url} blurHash={item.imageH.blurHash} />
+                        <ImageCard title={item.title} image={item.imageH.url} blurHash={item.imageH.blurHash} />
                     </div>
                 ))}
             </div>

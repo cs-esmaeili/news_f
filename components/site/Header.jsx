@@ -43,7 +43,7 @@ const Header = ({ open, setOpen, categorys }) => {
                 {config.app_name}
             </div>
             <div className='hidden md:flex'>
-                search
+                {/* search */}
             </div>
             <div className='flex md:hidden ml-auto' onClick={() => setOpen(true)}>
                 <IoMenu className='text-3xl' />

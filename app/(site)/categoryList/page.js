@@ -1,6 +1,6 @@
 import ImageCard from '@/components/site/ImageCard';
 import Image from 'next/image';
-import { categorys as Rcategorys } from '@/services/Site';
+import { categorys as Rcategorys } from '@/services/Category';
 
 const categorysData = async () => {
     try {
@@ -40,7 +40,7 @@ const categoryList = async () => {
                     {categorys.map((item, index) => {
                         return (
                             <div className='relative p-1 w-full sm:w-1/2 md:w-1/4 h-[290px]'>
-                                <ImageCard image={item.image.url} text={item.name} url={`/category/${item.name}`} roundMode />
+                                <ImageCard image={item.image.url} blurHash={item.image.blurHash} text={item.name} url={`/category/${item.name}/1`} roundMode />
                             </div>
                         );
                     })}

@@ -6,7 +6,7 @@ import 'react-image-crop/dist/ReactCrop.css'
 import '@/styles/globals.css';
 import Footer from '@/components/site/Footer';
 import { useState, useEffect } from 'react';
-import { categorys as Rcategorys } from '@/services/Site';
+import { categorys as Rcategorys } from '@/services/Category';
 
 export default function Layout({ children }) {
 

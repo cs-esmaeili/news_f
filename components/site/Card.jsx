@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { MdOutlineDateRange } from 'react-icons/md';
 import Date from './Date';
 
-const Card = ({ image, blurHash, title, disc, category, date, url = '', roundMode = false }) => {
+const Card = ({ image, blurHash, title, disc, category, date, roundMode = false }) => {
     return (
-        <Link href={url}>
+        <Link href={`/post/${title}`}>
             <div className="relative flex flex-col w-full h-full gap-2 hover:border-2 hover:border-accent_s">
                 <div className={`relative w-full h-full ${roundMode ? 'rounded-2xl overflow-hidden' : ''}`}>
                     <Image
