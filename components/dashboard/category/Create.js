@@ -97,7 +97,6 @@ export default function CreateCategory({ categoryList, editData, setEditData }) 
                                 onClick={(e) => {
                                     openModal(<Filemanager fileType={"image"} fileSelectListener={(selectedFile) => {
                                         const { baseUrl, file } = selectedFile;
-                                        console.log(selectedFile);
                                         setImage({ url: baseUrl + file.name, blurHash: file.blurHash });
                                         closeModal();
                                     }} />);

@@ -22,29 +22,33 @@ const getData = async () => {
 const page = async () => {
 
     const data = await getData();
-    
-    function getLocationData(locationNumber) {
+
+    function getLocationData(locationNumber, needCustomData = false) {
+        if (needCustomData) {
+            return data.find(obj => obj.location === locationNumber).customData;
+        }
         return data.find(obj => obj.location === locationNumber).data;
     }
 
     return (
         <div className='flex flex-col w-full max-w-full items-center gap-3'>
             <div className='relative w-full h-max  rounded-md overflow-hidden'>
-                <div className='absolute top-0 -z-10 w-full h-full bg-red-400'>
+                <div className='absolute top-0 -z-10 w-full h-full'>
                     <Image
-                        src="/big.png"
+                        src={getLocationData(1, true).image.url}
                         alt="Picture of the author"
+                        placeholder="blur"
                         fill
-                        style={{ objectFit: "cover" }}
+                        blurDataURL={getLocationData(1, true).image.blurHash}
+                        style={{ objectFit: 'cover' }}
                     />
                 </div>
                 <div className='mt-[80px] mb-5 flex  justify-center mx-2'>
-
-                    <div className='flex flex-wrap gap-2 justify-center grow lg:max-w-[1140px]'>
+                    <div className='flex flex-wrap gap-2 justify-between grow lg:max-w-[1140px]'>
                         <div className='flex  items-center'>
                             <div className='flex flex-col bg-secondary bg-opacity-50 rounded-md p-5 gap-3'>
-                                <span className='text-4xl'>All Sport News</span>
-                                <span>Lorem ipsum dolor sit amet consectetur. Lorem vel feugiat dolor nunc.</span>
+                                <span className='text-4xl'>{getLocationData(1, true).textArea.title}</span>
+                                <span>{getLocationData(1, true).textArea.disc}</span>
                             </div>
                         </div>
                         <div className='flex '>
@@ -70,7 +74,6 @@ const page = async () => {
                 <Location4 data={getLocationData(4)} />
                 <Location5 data={getLocationData(5)} sectionTitle={"section 5"} />
                 <Location5 data={getLocationData(6)} sectionTitle={"section 6"} />
-
             </div>
         </div>
     );
