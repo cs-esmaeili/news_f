@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import Link from "next/link";
 
-const ImageCard = ({ image, blurHash, text, url = "" }) => {
+const ImageCard = ({ image, blurHash, text }) => {
     return (
-        <Link href={url}>
+        <Link href={`/post/${text}`}>
             <div className='relative flex flex-col w-[287px] h-[367px] items-center'>
                 <div className='relative w-full h-full  rounded-2xl overflow-hidden'>
                     <Image

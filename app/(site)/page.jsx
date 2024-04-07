@@ -44,14 +44,14 @@ const page = async () => {
                     />
                 </div>
                 <div className='mt-[80px] mb-5 flex  justify-center mx-2'>
-                    <div className='flex flex-wrap gap-2 justify-between grow lg:max-w-[1140px]'>
-                        <div className='flex  items-center'>
+                    <div className='flex flex-wrap gap-2  grow lg:max-w-[1140px]'>
+                        <div className='flex grow  justify-center  items-center'>
                             <div className='flex flex-col bg-secondary bg-opacity-50 rounded-md p-5 gap-3'>
                                 <span className='text-4xl'>{getLocationData(1, true).textArea.title}</span>
                                 <span>{getLocationData(1, true).textArea.disc}</span>
                             </div>
                         </div>
-                        <div className='flex '>
+                        <div className='flex grow items-center justify-center'>
                             <Slider data={getLocationData(2)} />
                         </div>
                     </div>

@@ -8,7 +8,7 @@ import { postList as RpostList } from '@/services/Post';
 import { BiSolidEdit } from 'react-icons/bi';
 import { RiCloseFill } from 'react-icons/ri';
 
-const postList = () => {
+const postList = ({ pickMode = false, postPicker = null }) => {
 
     const [posts, setPosts] = useState(null);
     const [postsCount, setPostsCount] = useState(null);
@@ -40,7 +40,7 @@ const postList = () => {
 
 
     return (
-        <div className='flex grow flex-col overflow-hidden'>
+        <div className='flex grow flex-col overflow-hidden h-full'>
             <div className='flex grow overflow-y-auto overflow-x-hidden m-3 mb-0 basis-0 '>
                 {posts &&
                     <Table
@@ -59,13 +59,16 @@ const postList = () => {
                         ]}
                         rows={posts}
                         rowCountstart={(perPage * (activePage - 1))}
-                        selectMode={false}
+                        selectMode={pickMode ? true : false}
+                        selectListener={pickMode ? postPicker : null}
                         special={(row, index) => {
                             return (
                                 <td className={`h-[1px]  p-0 pb-1`}>
-                                    <div className="flex h-full items-center justify-center rounded-e-xl bg-secondary p-1 text-nowrap">
+                                    <div className={`flex h-full items-center justify-center rounded-e-xl bg-secondary p-1 text-nowrap  ${pickMode && "opacity-50"}`}>
                                         <BiSolidEdit className='text-xl ml-4 text-blue-400' onClick={() => {
-                                            setEditData(row);
+                                            if (!pickMode) {
+                                                setEditData(row);
+                                            }
                                         }} />
                                     </div>
                                 </td>
