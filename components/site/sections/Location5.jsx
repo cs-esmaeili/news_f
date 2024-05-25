@@ -6,8 +6,8 @@ const Location5 = ({ data, sectionTitle }) => {
         if (data[index]) {
             const { title, disc, imageH, createdAt, category_id } = data[index];
             return (
-                <div className='grow  w-full sm:w-1/3  md:w-1/5 relative  h-[320px]' key={index}>
-                    <Card title={title} disc={disc} image={imageH.url} blurHash={imageH.blurHash} date={createdAt} category={category_id.name} />
+                <div className='relative h-[320px]'>
+                    <Card key={index} title={title} disc={disc} image={imageH.url} blurHash={imageH.blurHash} date={createdAt} category={category_id.name} />
                 </div>
             );
         }
@@ -20,7 +20,7 @@ const Location5 = ({ data, sectionTitle }) => {
                 <div className='border-l-4 border-accent_s pr-1'></div>
                 <span className='text-xl'>{sectionTitle}</span>
             </div>
-            <div className='flex flex-wrap justify-between gap-3'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 w-full'>
                 {data.map((value, index) => renderCard(index))}
             </div>
         </>

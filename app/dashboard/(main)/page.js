@@ -11,6 +11,9 @@ import Input from '@/components/dashboard/Input';
 import Slider from '@/components/site/Slider';
 import { RxCross2 } from "react-icons/rx";
 import { GoPlus } from "react-icons/go";
+import ImageCard from '@/components/site/ImageCard';
+import Location5 from '@/components/site/sections/Location5';
+import Location4 from '@/components/site/sections/Location4';
 
 export default function Dashboard() {
 
@@ -65,7 +68,7 @@ export default function Dashboard() {
         <div className='flex flex-col  grow overflow-y-auto  p-3 gap-3'>
             {firstPageData &&
                 <>
-                    <div className='relative w-full h-max  rounded-md overflow-hidden' onClick={(e) => {
+                    <div className='relative w-full rounded-md' onClick={(e) => {
                         openModal(<Filemanager fileType={"image"} fileSelectListener={(selectedFile) => {
                             const { baseUrl, file } = selectedFile;
                             const url = baseUrl + file.name;
@@ -93,9 +96,7 @@ export default function Dashboard() {
                             />
                         </div>
                     </div>
-
-                    <div className='border-2'></div>
-
+                    <div className='border-2 border-accent'></div>
                     <div className='flex flex-col'>
                         <div className='flex gap-3'>
                             <div className='flex w-1/2 justify-center items-center'>
@@ -136,26 +137,7 @@ export default function Dashboard() {
                             </div>
                         </div>
                     </div>
-                    <div className='border-2'></div>
-                    {/* 
-                    <div className='flex'>
-                        <div className='flex w-1/2 justify-center items-center'>
-                            <Slider data={getLocationData(2)} />
-                        </div>
-                        <div className='flex flex-col w-1/2 bg-secondary p-2 rounded-md gap-3'>
-                            <div className='flex bg-primary rounded-sm p-2 items-center'>
-                                <div className='w-1/3'>Title</div>
-                                <div className='w-1/3'>Post_id</div>
-                                <div className='flex w-1/3 justify-end'>
-                                    <RxCross2 className='text-red-400 text-2xl' />
-                                </div>
-                            </div>
-                            <div className='flex rounded-sm  items-center p-2 border-2 justify-center border-dashed border-green-500'>
-                                <GoPlus className='text-green-500 text-2xl' />
-                            </div>
-                        </div>
-                    </div> */}
-                    {console.log(getLocationData(2))}
+                    <div className='border-2 border-accent'></div>
                     <div className='flex h-[400px]'>
                         <div className='flex w-1/2 justify-center items-center'>
                             <Slider data={getLocationData(2)} />
@@ -178,7 +160,7 @@ export default function Dashboard() {
                                     )
                                 })}
                             </div>
-                            <div className='flex rounded-sm  items-center p-2 border-2 justify-center border-dashed border-green-500'
+                            <div className='flex rounded-sm  items-center p-2 border-2 justify-center border-dashed border-accent'
                                 onClick={() => {
                                     openModal(
                                         <div className='flex relative h-[500px]'>
@@ -189,7 +171,176 @@ export default function Dashboard() {
                                         </div>
                                     );
                                 }}>
-                                <GoPlus className='text-green-500 text-2xl' />
+                                <GoPlus className='text-accent text-2xl' />
+                            </div>
+                        </div>
+                    </div>
+                    <div className='border-2 border-accent'></div>
+                    <div className='flex gap-4  w-full  h-[300px] justify-between'>
+                        <div className='flex w-1/2 overflow-x-auto overflow-y-hidden'>
+                            {getLocationData(3).map((value, index) => {
+                                if (index <= 5) {
+                                    return (
+                                        <div className='relative min-w-[170px]  w-[170px] h-[290px] pl-0 ml-2'>
+                                            <ImageCard text={value.title} image={value.imageV.url} blurHash={value.imageV.blurHash} url={`/post/${value.title}`} roundMode />
+                                        </div>
+                                    )
+                                }
+                            })}
+                        </div>
+                        <div className='flex flex-col w-1/2 bg-secondary p-2'>
+                            <div className='flex  flex-col overflow-y-auto rounded-md gap-3 mb-3'>
+                                {getLocationData(3) && getLocationData(3).map((value, index) => {
+                                    return (
+                                        <div className='flex bg-primary rounded-sm p-2 items-center'>
+                                            <div className='flex grow'>{index + 1}</div>
+                                            <div className='flex w-1/4 justify-center'>{value.title}</div>
+                                            <div className='w-1/4'>{value.createdAt}</div>
+                                            <div className='w-1/4'>{value._id}</div>
+                                            <div className='flex w-1/4 justify-end' onClick={() => {
+                                                updateData(3, removePost(getLocationData(3), value._id), {});
+                                            }}>
+                                                <RxCross2 className='text-red-400 text-2xl' />
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                            <div className='flex rounded-sm  items-center p-2 border-2 justify-center border-dashed border-accent'
+                                onClick={() => {
+                                    openModal(
+                                        <div className='flex relative h-[500px]'>
+                                            <PostList pickMode postPicker={(post) => {
+                                                updateData(3, [...getLocationData(3), post], {});
+                                                closeModal();
+                                            }} />
+                                        </div>
+                                    );
+                                }}>
+                                <GoPlus className='text-accent text-2xl' />
+                            </div>
+                        </div>
+                    </div>
+                    <div className='border-2 border-accent'></div>
+
+                    <div className='flex flex-col gap-4  w-full  h-fit justify-between'>
+
+                        <div className='flex overflow-x-auto overflow-y-hidden'>
+                            <Location4 data={getLocationData(4)} />
+                        </div>
+
+                        <div className='flex flex-col  bg-secondary p-2'>
+                            <div className='flex  flex-col overflow-y-auto rounded-md gap-3 mb-3'>
+                                {getLocationData(4) && getLocationData(4).map((value, index) => {
+                                    return (
+                                        <div className='flex bg-primary rounded-sm p-2 items-center'>
+                                            <div className='flex grow'>{index + 1}</div>
+                                            <div className='flex w-1/4 justify-center'>{value.title}</div>
+                                            <div className='w-1/4'>{value.createdAt}</div>
+                                            <div className='w-1/4'>{value._id}</div>
+                                            <div className='flex w-1/4 justify-end' onClick={() => {
+                                                updateData(4, removePost(getLocationData(4), value._id), {});
+                                            }}>
+                                                <RxCross2 className='text-red-400 text-2xl' />
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                            <div className='flex rounded-sm  items-center p-2 border-2 justify-center border-dashed border-accent'
+                                onClick={() => {
+                                    openModal(
+                                        <div className='flex relative h-[500px]'>
+                                            <PostList pickMode postPicker={(post) => {
+                                                updateData(4, [...getLocationData(4), post], {});
+                                                closeModal();
+                                            }} />
+                                        </div>
+                                    );
+                                }}>
+                                <GoPlus className='text-accent text-2xl' />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div className='border-2 border-accent'></div>
+                    <div className='flex flex-col gap-4  w-full  h-fit justify-between'>
+
+                        <div className='flex overflow-x-auto overflow-y-hidden'>
+                            <Location5 data={getLocationData(5)} sectionTitle={"section 5"} />
+                        </div>
+
+                        <div className='flex flex-col  bg-secondary p-2'>
+                            <div className='flex  flex-col overflow-y-auto rounded-md gap-3 mb-3'>
+                                {getLocationData(5) && getLocationData(5).map((value, index) => {
+                                    return (
+                                        <div className='flex bg-primary rounded-sm p-2 items-center'>
+                                            <div className='flex grow'>{index + 1}</div>
+                                            <div className='flex w-1/4 justify-center'>{value.title}</div>
+                                            <div className='w-1/4'>{value.createdAt}</div>
+                                            <div className='w-1/4'>{value._id}</div>
+                                            <div className='flex w-1/4 justify-end' onClick={() => {
+                                                updateData(5, removePost(getLocationData(5), value._id), {});
+                                            }}>
+                                                <RxCross2 className='text-red-400 text-2xl' />
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                            <div className='flex rounded-sm  items-center p-2 border-2 justify-center border-dashed border-accent'
+                                onClick={() => {
+                                    openModal(
+                                        <div className='flex relative h-[500px]'>
+                                            <PostList pickMode postPicker={(post) => {
+                                                updateData(5, [...getLocationData(5), post], {});
+                                                closeModal();
+                                            }} />
+                                        </div>
+                                    );
+                                }}>
+                                <GoPlus className='text-accent text-2xl' />
+                            </div>
+                        </div>
+                    </div>
+                    <div className='border-2 border-accent'></div>
+                    <div className='flex flex-col gap-4  w-full  h-fit justify-between'>
+
+                        <div className='flex overflow-x-auto overflow-y-hidden'>
+                            <Location5 data={getLocationData(6)} sectionTitle={"section 6"} />
+                        </div>
+
+                        <div className='flex flex-col  bg-secondary p-2'>
+                            <div className='flex  flex-col overflow-y-auto rounded-md gap-3 mb-3'>
+                                {getLocationData(6) && getLocationData(6).map((value, index) => {
+                                    return (
+                                        <div className='flex bg-primary rounded-sm p-2 items-center'>
+                                            <div className='flex grow'>{index + 1}</div>
+                                            <div className='flex w-1/4 justify-center'>{value.title}</div>
+                                            <div className='w-1/4'>{value.createdAt}</div>
+                                            <div className='w-1/4'>{value._id}</div>
+                                            <div className='flex w-1/4 justify-end' onClick={() => {
+                                                updateData(6, removePost(getLocationData(6), value._id), {});
+                                            }}>
+                                                <RxCross2 className='text-red-400 text-2xl' />
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                            <div className='flex rounded-sm  items-center p-2 border-2 justify-center border-dashed border-accent'
+                                onClick={() => {
+                                    openModal(
+                                        <div className='flex relative h-[500px]'>
+                                            <PostList pickMode postPicker={(post) => {
+                                                updateData(6, [...getLocationData(6), post], {});
+                                                closeModal();
+                                            }} />
+                                        </div>
+                                    );
+                                }}>
+                                <GoPlus className='text-accent text-2xl' />
                             </div>
                         </div>
                     </div>

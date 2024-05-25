@@ -18,9 +18,13 @@ const Card = ({ image, blurHash, title, disc, category, date, roundMode = false 
                     />
                 </div>
                 <div className="justify-center">
-                    <div className="flex flex-nowrap justify-between max-w-full mb-2">
-                        <div className="bg-gray-700 rounded-xl px-2 py-1 bg-opacity-50">{category}</div>
-                        <div className="flex items-center opacity-75">
+                    <div className="flex flex-wrap-reverse justify-start max-w-full mb-2">
+                        <div className='flex bg-gray-700  rounded-xl px-2 py-1 bg-opacity-50'>
+                            {category}
+                        </div>
+                        <div className="m-auto">
+                        </div>
+                        <div className="flex items-center opacity-75 ">
                             <Date date={date} />
                             <MdOutlineDateRange className="text-2xl pl-1" />
                         </div>

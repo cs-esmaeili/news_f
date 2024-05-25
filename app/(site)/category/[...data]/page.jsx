@@ -63,7 +63,7 @@ const Category = async ({ params }) => {
                 <div className='absolute bottom-0 w-full h-1/4 bg-gradient-to-t from-primary_s to-transparent' />
             </div>
             <div className='flex flex-col lg:max-w-[1140px] w-full max-w-full gap-3 px-2'>
-                <div className=" grid grid-cols-4 gap-5  p-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5  p-2">
                     {posts && posts.map((value, index) => {
                         const { title, disc, createdAt, imageH } = value;
                         const { url, blurHash } = imageH;
